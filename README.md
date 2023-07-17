@@ -11,8 +11,8 @@ By using a verity of economic, political, and social features and through the us
 
 
 # Initial Thoughts
- 
- 
+
+
 # The Plan
  
 * Acquire data:
@@ -23,15 +23,15 @@ By using a verity of economic, political, and social features and through the us
    * Remove nulls by replacing with rolling avg
    * Offset the quarterly revenue one row down
 	 
-        
- 
+
+
 * Explore data:
    * Answer the following initial questions:
        1. Which features have the highest correlation with revenue 
        2. 
        3. 
        4. 
-       
+
 
 # Data Dictionary
 
@@ -67,8 +67,8 @@ Note: If you would like to recreate the Github scraping and API process we used 
 * **Exploration** 
     * 
     * 
-    
-        
+
+
 * **Modeling**
     *  
 
@@ -80,3 +80,7 @@ Note: If you would like to recreate the Github scraping and API process we used 
 *  
 * 
 
+
+```python
+
+```
