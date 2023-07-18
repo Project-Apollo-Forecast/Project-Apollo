@@ -145,10 +145,8 @@ def starbucks_LassoLars_model(X_train_scaled, y_train, starbucks_metrics_df):
 
     Parameters:
         X_train_scaled (pandas DataFrame): The scaled feature variables of the training data.
-        X_test_scaled (pandas DataFrame): The scaled feature variables of the test data.
         y_train (pandas Series): The target variable for the training data.
-        y_test (pandas Series): The target variable for the test data.
-        metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
+        starbucks_metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
 
     Returns:
         pandas DataFrame: The updated metrics DataFrame with the evaluation metrics of the LassoLars model.
@@ -156,7 +154,7 @@ def starbucks_LassoLars_model(X_train_scaled, y_train, starbucks_metrics_df):
     # Define the model and the hyperparameter grid
     model = LassoLars(normalize=False)
     param_grid = {
-        'alpha': [0,0.1,0.25,0.5,0.75, 1],  # Example hyperparameter values to search through
+        'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],  
         'normalize': [True, False]
     }
     scoring = {
@@ -169,32 +167,23 @@ def starbucks_LassoLars_model(X_train_scaled, y_train, starbucks_metrics_df):
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    #best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    # Make predictions on the test data using the best model
-    #pred_test_lars = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_lars)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[2] = ['LassoLars', abs(best_score), best_r2]
+    starbucks_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
 
     return starbucks_metrics_df
 
-def starbucks_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y_test, starbucks_metrics_df):
+def starbucks_Generalized_Linear_Model(X_train_scaled, y_train, starbucks_metrics_df):
     """
     Fits a Generalized Linear Model (GLM) and evaluates its performance.
 
     Parameters:
         X_train_scaled (pandas DataFrame): The scaled feature variables of the training data.
-        X_test_scaled (pandas DataFrame): The scaled feature variables of the test data.
         y_train (pandas Series): The target variable for the training data.
-        y_test (pandas Series): The target variable for the test data.
-        metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
+        starbucks_metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
 
     Returns:
         pandas DataFrame: The updated metrics DataFrame with the evaluation metrics of the GLM.
@@ -202,7 +191,7 @@ def starbucks_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y
     # Define the model and the hyperparameter grid
     model = TweedieRegressor()
     param_grid = {
-        'alpha': [0, 0.5, 1],  # Example values for alpha
+        'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],
         'power': [0, 1, 2]  # Example values for power
     }
     scoring = {
@@ -216,28 +205,21 @@ def starbucks_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
     #best_params = grid_search.best_params_
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    # Make predictions on the test data using the best model
-    #pred_test_glm = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_glm)
-
+   
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[3] = ['Generalized Linear Model', abs(best_score), best_r2]
+    starbucks_metrics_df.loc[2] = ['Generalized Linear Model', abs(best_score), best_r2]
 
-    return starbucks_metrics_df, best_model
+    return starbucks_metrics_df
 
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 
-def starbucks_polynomial_regression(X_train_scaled, X_test_scaled, y_train, y_test, starbucks_metrics_df):
+def starbucks_polynomial_regression(X_train_scaled, y_train, starbucks_metrics_df):
     """
     Performs polynomial regression and evaluates the model's performance.
 
@@ -274,20 +256,17 @@ def starbucks_polynomial_regression(X_train_scaled, X_test_scaled, y_train, y_te
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
-    #best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
+    best_model = grid_search.best_estimator_
+
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    ## Make predictions on the test data using the best model
-    #pred_test_pr = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
+    
 
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[4] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
+    starbucks_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
 
-    return starbucks_metrics_df
+    return starbucks_metrics_df, best_model
 
 def starbucks_prediction_Q2_2023_revenue(model, starbucks_revenue_prediction_scaled):
 
@@ -320,21 +299,15 @@ def get_ford_Q1_2023_data_for_prediction():
 
 def ford_scaled_df(train, test, ford_revenue_prediction):
     """
-    This function scales the train, validate, and test data using the MinMaxScaler.
+    Performs polynomial regression and evaluates the model's performance.
 
     Parameters:
-    train (pandas DataFrame): The training data.
-    test (pandas DataFrame): The test data.
-    ford_revenue_prediction (pandas DataFrame): The data for Ford revenue prediction.
+        X_train_scaled (pandas DataFrame): The scaled feature variables of the training data.
+        y_train (pandas Series): The target variable for the training data.
+        starbucks_metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
 
     Returns:
-    Tuple of:
-        X_train_scaled (pandas DataFrame): The scaled training data.
-        X_test_scaled (pandas DataFrame): The scaled test data.
-        y_train (pandas Series): The target variable for the training data.
-        y_test (pandas Series): The target variable for the test data.
-        X_train (pandas DataFrame): The original training data.
-        ford_revenue_prediction_scaled (pandas DataFrame): The scaled Ford revenue prediction data.
+        pandas DataFrame: The updated metrics DataFrame with the evaluation metrics of the polynomial regression model.
     """
 
     X_train = train[['population', 'median_house_income', 'misery_index',
@@ -434,7 +407,7 @@ def ford_LassoLars_model(X_train_scaled, y_train, ford_metrics_df):
     # Define the model and the hyperparameter grid
     model = LassoLars(normalize=False)
     param_grid = {
-        'alpha': [0,0.1,0.25,0.5,0.75, 1],  # Example hyperparameter values to search through
+        'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],  
         'normalize': [True, False]
     }
     scoring = {
@@ -447,17 +420,10 @@ def ford_LassoLars_model(X_train_scaled, y_train, ford_metrics_df):
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    #best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
+    # Get the best model and its rmse and r2
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    # Make predictions on the test data using the best model
-    #pred_test_lars = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_lars)
-
+  
     # Add evaluation metrics to the provided metrics DataFrame
     ford_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
 
@@ -480,7 +446,7 @@ def ford_Generalized_Linear_Model(X_train_scaled, y_train, ford_metrics_df):
     # Define the model and the hyperparameter grid
     model = TweedieRegressor()
     param_grid = {
-        'alpha': [0, 0.5, 1],  # Example values for alpha
+        'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],  # Example values for alpha
         'power': [0, 1, 2]  # Example values for power
     }
     scoring = {
@@ -494,17 +460,10 @@ def ford_Generalized_Linear_Model(X_train_scaled, y_train, ford_metrics_df):
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    #best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
+    # Get the best models rmse and r2
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    # Make predictions on the test data using the best model
-    #pred_test_glm = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_glm)
-
+   
     # Add evaluation metrics to the provided metrics DataFrame
     ford_metrics_df.loc[2] = ['Generalized Linear Model', abs(best_score), best_r2]
 
@@ -552,15 +511,11 @@ def ford_polynomial_regression(X_train_scaled, y_train, ford_metrics_df):
 
     # Get the best model and its hyperparameters
     best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
+    
+
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    ## Make predictions on the test data using the best model
-    #pred_test_pr = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
-
+  
     # Add evaluation metrics to the provided metrics DataFrame
     ford_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
 
@@ -708,7 +663,7 @@ def att_LassoLars_model(X_train_scaled, y_train, att_metrics_df):
     # Define the model and the hyperparameter grid
     model = LassoLars(normalize=False)
     param_grid = {
-        'alpha': [0,0.1,0.25,0.5,0.75, 1],  # Example hyperparameter values to search through
+        'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],
         'normalize': [True, False]
     }
 
@@ -723,17 +678,10 @@ def att_LassoLars_model(X_train_scaled, y_train, att_metrics_df):
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    #best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
+    # Get the best model and its rmse and r2
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    ## Make predictions on the test data using the best model
-    #pred_test_pr = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
-
+    
     # Add evaluation metrics to the provided metrics DataFrame
     att_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
 
@@ -756,8 +704,8 @@ def att_Generalized_Linear_Model(X_train_scaled, y_train, att_metrics_df):
     # Define the model and the hyperparameter grid
     model = TweedieRegressor()
     param_grid = {
-        'alpha': [0, 0.5, 1],  # Example values for alpha
-        'power': [0, 1, 2]  # Example values for power
+        'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],  
+        'power': [0, 1, 2]  
     }
 
     scoring = {
@@ -771,17 +719,10 @@ def att_Generalized_Linear_Model(X_train_scaled, y_train, att_metrics_df):
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    #best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
+    # Get the best model and its best rmse and r2
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    ## Make predictions on the test data using the best model
-    #pred_test_pr = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
-
+    
     # Add evaluation metrics to the provided metrics DataFrame
     att_metrics_df.loc[2] = ['Generalized Linear Model(GLM)', abs(best_score), best_r2]
 
@@ -828,16 +769,10 @@ def att_polynomial_regression(X_train_scaled, y_train, att_metrics_df):
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
+    # Get the best models rmse and r2 
     best_model = grid_search.best_estimator_
-    #best_params = grid_search.best_params_
     best_score = grid_search.best_score_
     best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
-    ## Make predictions on the test data using the best model
-    #pred_test_pr = best_model.predict(X_test_scaled)
-
-    # Evaluate the model on the test data
-    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
 
     # Add evaluation metrics to the provided metrics DataFrame
     att_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
