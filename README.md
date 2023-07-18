@@ -29,7 +29,7 @@ By using a verity of publicly available economic, political, and social features
 * Explore data:
    * Answer the following initial questions:
        1. Which features have the highest correlation with revenue 
-       
+
 
 # Data Dictionary
 
@@ -67,7 +67,7 @@ By using a verity of publicly available economic, political, and social features
 1) Clone this repo 
 2) Run notebook
 
- 
+
 # Takeaways and Conclusions<br>
 
 * **Exploration** 
