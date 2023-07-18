@@ -1,21 +1,20 @@
 # Project-Apollo
-Predict Blue-Chip Quarterly Revenue
+- Predict Blue-Chip Quarterly Revenue
 
 # Project Description
-By using a verity of publicly available economic, political, and social features and through the use of regression modeling this project aims to predict the quarterly revenue of blue-chip companies. 3 companies were used as examples; Ford, Starbucks, and ATT.
-
+- This project predicts the next quarter's revenue for U.S blue chip companies (Ford Motor Company, Starbucks, and ATT), based on 80 quarters (20 years worth) of various economic, social, political, and environmental factors. 
 
 # Project Goal
  
-* To predict the quarterly revenue of blue-chip companies
-
+* The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
 
 # Initial Thoughts
 
-* Social features will have the largest impact on accuracy of the model.
+* 'Everything, Everywhere, all at once'. This powerful quote captures the idea of the interconnectedness of all things in every possible place or situation... simultaneously. In terms of this project, we are seeking the obscure, not so evident slices of data from various sectors which implicitly have an unseen impact on the performance of revenue (for a variety of reasons). Gaining these small insights may arm decision makers with advanced knowledge of factors affecting their respective revenues, and afford time to adjust business strategy based on those insights. 
 
 # The Plan
- 
+- Planning:
+    - Brainstorm about feature
 * Acquire data:
     * Download required csv, pdf, xlsx files from various online sources and convert into a dataframes
     * Combine into one dataframe 
@@ -23,6 +22,7 @@ By using a verity of publicly available economic, political, and social features
 * Prepare data:
    * Remove nulls by replacing with rolling avg
    * Offset the quarterly revenue one row down
+- 
 	 
 
 

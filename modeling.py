@@ -30,13 +30,12 @@ def get_starbucks_Q1_2023_data_for_prediction():
     this_is_it = pd.read_csv('values_for_prediction_ford_adjusted.csv')
 
     # Select statistically significant features for revenue prediction
-    starbucks_revenue_prediction = this_is_it[['population','median_house_income', 'unemp_rate',
-                                           'home_ownership_rate', 'government_spending',
-                                           'gdp_deflated','violent_crime_rate',
-                                           'cpi_all_items_avg','eci', 'dow', 's_and_p', 
-                                           'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
-                                           'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
-                                           'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
+    starbucks_revenue_prediction = this_is_it[['population', 'median_house_income', 'unemp_rate',
+                                               'home_ownership_rate', 'government_spending', 'gdp_deflated',
+                                               'violent_crime_rate','cpi_all_items_avg', 'eci', 'dow', 's_and_p', 
+                                               'Man_new_order', 'hdi','auto_loan', 'velocity_of_money', 
+                                               'case_shiller_index','c_e_s_housing', 'c_e_s_health',
+                                               'ease_of_doing_business']]
     return starbucks_revenue_prediction
 
 def starbucks_scaled_df(train, test, starbucks_revenue_prediction):
@@ -57,20 +56,18 @@ def starbucks_scaled_df(train, test, starbucks_revenue_prediction):
             X_train (pandas DataFrame): The original training data.
             starbucks_revenue_prediction_scaled (pandas DataFrame): The scaled Starbucks revenue prediction data.
     """
-    X_train = train[['population','median_house_income', 'unemp_rate',
-                                           'home_ownership_rate', 'government_spending',
-                                           'gdp_deflated','violent_crime_rate',
-                                           'cpi_all_items_avg','eci', 'dow', 's_and_p', 
-                                           'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
-                                           'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
-                                           'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
-    X_test = test[['population','median_house_income', 'unemp_rate',
-                                           'home_ownership_rate', 'government_spending',
-                                           'gdp_deflated','violent_crime_rate',
-                                           'cpi_all_items_avg','eci', 'dow', 's_and_p', 
-                                           'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
-                                           'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
-                                           'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
+    X_train = train[['population', 'median_house_income', 'unemp_rate',
+                     'home_ownership_rate', 'government_spending', 'gdp_deflated',
+                     'violent_crime_rate','cpi_all_items_avg', 'eci', 'dow', 's_and_p', 
+                     'Man_new_order', 'hdi','auto_loan', 'velocity_of_money', 
+                     'case_shiller_index','c_e_s_housing', 'c_e_s_health',
+                     'ease_of_doing_business']]
+    X_test = test[['population', 'median_house_income', 'unemp_rate',
+                   'home_ownership_rate', 'government_spending', 'gdp_deflated',
+                   'violent_crime_rate','cpi_all_items_avg', 'eci', 'dow', 's_and_p', 
+                   'Man_new_order', 'hdi','auto_loan', 'velocity_of_money', 
+                   'case_shiller_index','c_e_s_housing', 'c_e_s_health',
+                   'ease_of_doing_business']]
 
     y_train = train.adjusted_revenue_S
     y_test = test.adjusted_revenue_S
@@ -165,23 +162,28 @@ def starbucks_LassoLars_model(X_train_scaled, y_train, starbucks_metrics_df):
         'normalize': [True, False]
     }
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=model, 
+                               param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
+    #   Get the best model rmse and r2
+    best_model = grid_search.best_estimator_
     # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
 
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
+    starbucks_metrics_df.loc[1] = ['LassoLars', abs(best_score), corresponding_r2]
 
-    return starbucks_metrics_df
+    return starbucks_metrics_df, best_model
 
 def starbucks_Generalized_Linear_Model(X_train_scaled, y_train, starbucks_metrics_df):
     """
@@ -202,22 +204,26 @@ def starbucks_Generalized_Linear_Model(X_train_scaled, y_train, starbucks_metric
         'power': [0, 1, 2]  # Example values for power
     }
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
 
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    #best_params = grid_search.best_params_
+    
+
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
    
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[2] = ['Generalized Linear Model', abs(best_score), best_r2]
+    starbucks_metrics_df.loc[2] = ['Generalized Linear Model', abs(best_score), corresponding_r2]
 
     return starbucks_metrics_df
 
@@ -258,27 +264,28 @@ def starbucks_polynomial_regression(X_train_scaled, y_train, starbucks_metrics_d
 
     # Define the scoring functions
     scoring = {
-        'RMSE': make_scorer(mean_squared_error, squared=False),
-        'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
 
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
 
     # Get the best model rmse and r2
+  
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
 
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
+    starbucks_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), corresponding_r2]
 
-    return starbucks_metrics_df, best_model
+    return starbucks_metrics_df
 
 def starbucks_prediction_Q2_2023_revenue(model, starbucks_revenue_prediction_scaled):
     """
@@ -481,23 +488,29 @@ def ford_LassoLars_model(X_train_scaled, y_train, ford_metrics_df):
         'normalize': [True, False]
     }
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=model, 
+                               param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its rmse and r2
+    #   Get the best model rmse and r2
+    best_model = grid_search.best_estimator_
+
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
   
     # Add evaluation metrics to the provided metrics DataFrame
-    ford_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
+    ford_metrics_df.loc[1] = ['LassoLars', abs(best_score), corresponding_r2]
 
-    return ford_metrics_df
+    return ford_metrics_df, best_model 
 
 def ford_Generalized_Linear_Model(X_train_scaled, y_train, ford_metrics_df):
     """
@@ -518,22 +531,24 @@ def ford_Generalized_Linear_Model(X_train_scaled, y_train, ford_metrics_df):
         'power': [0, 1, 2]  # Example values for power
     }
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
-
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=model, 
+                               param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best models rmse and r2
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
    
     # Add evaluation metrics to the provided metrics DataFrame
-    ford_metrics_df.loc[2] = ['Generalized Linear Model', abs(best_score), best_r2]
+    ford_metrics_df.loc[2] = ['Generalized Linear Model', abs(best_score), corresponding_r2]
 
     return ford_metrics_df
 
@@ -565,28 +580,26 @@ def ford_polynomial_regression(X_train_scaled, y_train, ford_metrics_df):
         'polynomialfeatures__degree': [1, 2, 3, 4, 5]  
     }
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
-
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=pipeline, 
+                               param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
-    
-
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
   
     # Add evaluation metrics to the provided metrics DataFrame
-    ford_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
+    ford_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), corresponding_r2]
 
-    return ford_metrics_df, best_model
-
+    return ford_metrics_df
 def ford_prediction_Q2_2023_revenue(model, ford_revenue_prediction_scaled):
     """
     Predicts Ford Motor Company's revenue for the second quarter of 2023.
@@ -760,24 +773,29 @@ def att_LassoLars_model(X_train_scaled, y_train, att_metrics_df):
     }
 
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
-
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=model, 
+                               param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its rmse and r2
+    #   Get the best model rmse and r2
+    best_model = grid_search.best_estimator_
+
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
     
     # Add evaluation metrics to the provided metrics DataFrame
-    att_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
+    att_metrics_df.loc[1] = ['LassoLars', abs(best_score), corresponding_r2]
 
-    return att_metrics_df
+    return att_metrics_df , best_model
 
 def att_Generalized_Linear_Model(X_train_scaled, y_train, att_metrics_df):
     """
@@ -799,22 +817,24 @@ def att_Generalized_Linear_Model(X_train_scaled, y_train, att_metrics_df):
     }
 
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
-
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=model, 
+                               param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best model and its best rmse and r2
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
     
     # Add evaluation metrics to the provided metrics DataFrame
-    att_metrics_df.loc[2] = ['Generalized Linear Model(GLM)', abs(best_score), best_r2]
+    att_metrics_df.loc[2] = ['Generalized Linear Model(GLM)', abs(best_score), corresponding_r2]
 
     return att_metrics_df
 
@@ -847,25 +867,26 @@ def att_polynomial_regression(X_train_scaled, y_train, att_metrics_df):
     }
 
     scoring = {
-    'RMSE': make_scorer(mean_squared_error, squared=False),
-    'r2': make_scorer(r2_score),
+    'RMSE': 'neg_root_mean_squared_error',
+    'r2': make_scorer(r2_score)
     }
-
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
+    grid_search = GridSearchCV(estimator=pipeline, 
+                               param_grid=param_grid, scoring=scoring, cv=5, refit='RMSE')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    # Get the best models rmse and r2 
-    best_model = grid_search.best_estimator_
+    # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+
+    best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
+    corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
 
     # Add evaluation metrics to the provided metrics DataFrame
-    att_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
+    att_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), corresponding_r2]
 
-    return att_metrics_df, best_model
+    return att_metrics_df
 
 def att_prediction_Q2_2023_revenue(best_model, att_revenue_prediction_scaled):
     """
