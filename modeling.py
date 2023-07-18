@@ -15,6 +15,7 @@ from sklearn.preprocessing import PolynomialFeatures
 #import r2
 from sklearn.metrics import r2_score
 from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.metrics import make_scorer
 
 
 
@@ -138,51 +139,7 @@ def starbucks_baseline_model(train, y_train):
     print(f' Baseline mean is : {baseline}')
     return starbucks_metrics_df
 
-def starbucks_multiple_regression(X_train_scaled, X_test_scaled, y_train, y_test, starbucks_metrics_df):
-    """
-    Performs multiple regression using Recursive Feature Elimination (RFE) and evaluates the model's performance.
-
-    Parameters:
-        X_train_scaled (pandas DataFrame): The scaled feature variables of the training data.
-        X_test_scaled (pandas DataFrame): The scaled feature variables of the test data.
-        y_train (pandas Series): The target variable for the training data.
-        y_test (pandas Series): The target variable for the test data.
-        metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
-
-    Returns:
-        pandas DataFrame: The updated metrics DataFrame with the evaluation metrics of the multiple regression model.
-    """
-    # Define the model
-    model = LinearRegression()
-
-    # Create the RFE object
-    rfe = RFE(estimator=model, n_features_to_select=22)  
-
-    # Fit the RFE object to the training data
-    rfe.fit(X_train_scaled, y_train)
-
-    # Get the selected features
-    selected_features = X_train_scaled.columns[rfe.support_].tolist()
-
-    # Transform the data using the selected features
-    X_train_rfe = rfe.transform(X_train_scaled)
-    X_test_rfe = rfe.transform(X_test_scaled)
-
-    # Fit the model on the transformed training data
-    model.fit(X_train_rfe, y_train)
-
-    # Make predictions on the transformed test data
-    pred_test_OLS = model.predict(X_test_rfe)
-
-    # Evaluate the model on the test data
-    rmse, r2 = starbucks_metrics_reg(y_test, pred_test_OLS)
-
-    # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[1] = ['Multiple Regression', rmse, r2]
-
-    return starbucks_metrics_df, selected_features, model
-
-def starbucks_LassoLars_model(X_train_scaled, X_test_scaled, y_train, y_test, starbucks_metrics_df):
+def starbucks_LassoLars_model(X_train_scaled, y_train, starbucks_metrics_df):
     """
     Performs LassoLars regression and evaluates the model's performance.
 
@@ -202,25 +159,29 @@ def starbucks_LassoLars_model(X_train_scaled, X_test_scaled, y_train, y_test, st
         'alpha': [0,0.1,0.25,0.5,0.75, 1],  # Example hyperparameter values to search through
         'normalize': [True, False]
     }
-
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
+    #best_model = grid_search.best_estimator_
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
     # Make predictions on the test data using the best model
-    pred_test_lars = best_model.predict(X_test_scaled)
+    #pred_test_lars = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = starbucks_metrics_reg(y_test, pred_test_lars)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_lars)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[2] = ['LassoLars', rmse, r2]
+    starbucks_metrics_df.loc[2] = ['LassoLars', abs(best_score), best_r2]
 
     return starbucks_metrics_df
 
@@ -244,27 +205,32 @@ def starbucks_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y
         'alpha': [0, 0.5, 1],  # Example values for alpha
         'power': [0, 1, 2]  # Example values for power
     }
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
 
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
     best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
     # Make predictions on the test data using the best model
-    pred_test_glm = best_model.predict(X_test_scaled)
+    #pred_test_glm = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = starbucks_metrics_reg(y_test, pred_test_glm)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_glm)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[4] = ['Generalized Linear Model', rmse, r2]
+    starbucks_metrics_df.loc[3] = ['Generalized Linear Model', abs(best_score), best_r2]
 
-    return starbucks_metrics_df
+    return starbucks_metrics_df, best_model
 
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
@@ -295,25 +261,31 @@ def starbucks_polynomial_regression(X_train_scaled, X_test_scaled, y_train, y_te
     param_grid = {
         'polynomialfeatures__degree': [1, 2, 3, 4, 5]  
     }
+    # Define the scoring functions
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
 
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
-    # Make predictions on the test data using the best model
-    pred_test_pr = best_model.predict(X_test_scaled)
+    #best_model = grid_search.best_estimator_
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+    ## Make predictions on the test data using the best model
+    #pred_test_pr = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    starbucks_metrics_df.loc[3] = ['Polynomial Regression(PR)', rmse, r2]
+    starbucks_metrics_df.loc[4] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
 
     return starbucks_metrics_df
 
@@ -325,6 +297,13 @@ def starbucks_prediction_Q2_2023_revenue(model, starbucks_revenue_prediction_sca
 
     # Print the predicted value
     print('Starbucks predicted 2023 Q2 revenue is' , pred_value)
+
+def best_model_on_test(X_test_scaled, best_model, y_test):
+    sb_pred_test = best_model.predict(X_test_scaled)
+
+    rmse, r2 = starbucks_metrics_reg(y_test, sb_pred_test)
+
+    return rmse, r2
 
 def get_ford_Q1_2023_data_for_prediction():
     
@@ -438,51 +417,7 @@ def ford_baseline_model(train, y_train):
     print(f' Baseline mean is : {baseline}')
     return ford_metrics_df
 
-def ford_multiple_regression(X_train_scaled, X_test_scaled, y_train, y_test, ford_metrics_df):
-    """
-    Performs multiple regression using Recursive Feature Elimination (RFE) and evaluates the model's performance.
-
-    Parameters:
-        X_train_scaled (pandas DataFrame): The scaled feature variables of the training data.
-        X_test_scaled (pandas DataFrame): The scaled feature variables of the test data.
-        y_train (pandas Series): The target variable for the training data.
-        y_test (pandas Series): The target variable for the test data.
-        metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
-
-    Returns:
-        pandas DataFrame: The updated metrics DataFrame with the evaluation metrics of the multiple regression model.
-    """
-    # Define the model
-    model = LinearRegression()
-
-    # Create the RFE object
-    rfe = RFE(estimator=model, n_features_to_select=15)  
-
-    # Fit the RFE object to the training data
-    rfe.fit(X_train_scaled, y_train)
-
-    # Get the selected features
-    selected_features = X_train_scaled.columns[rfe.support_].tolist()
-
-    # Transform the data using the selected features
-    X_train_rfe = rfe.transform(X_train_scaled)
-    X_test_rfe = rfe.transform(X_test_scaled)
-
-    # Fit the model on the transformed training data
-    model.fit(X_train_rfe, y_train)
-
-    # Make predictions on the transformed test data
-    pred_test_OLS = model.predict(X_test_rfe)
-
-    # Evaluate the model on the test data
-    rmse, r2 = ford_metrics_reg(y_test, pred_test_OLS)
-
-    # Add evaluation metrics to the provided metrics DataFrame
-    ford_metrics_df.loc[1] = ['Multiple Regression', rmse, r2]
-
-    return ford_metrics_df, selected_features, model
-
-def ford_LassoLars_model(X_train_scaled, X_test_scaled, y_train, y_test, ford_metrics_df):
+def ford_LassoLars_model(X_train_scaled, y_train, ford_metrics_df):
     """
     Performs LassoLars regression and evaluates the model's performance.
 
@@ -502,29 +437,33 @@ def ford_LassoLars_model(X_train_scaled, X_test_scaled, y_train, y_test, ford_me
         'alpha': [0,0.1,0.25,0.5,0.75, 1],  # Example hyperparameter values to search through
         'normalize': [True, False]
     }
-
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
+    #best_model = grid_search.best_estimator_
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
     # Make predictions on the test data using the best model
-    pred_test_lars = best_model.predict(X_test_scaled)
+    #pred_test_lars = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = ford_metrics_reg(y_test, pred_test_lars)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_lars)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    ford_metrics_df.loc[2] = ['LassoLars', rmse, r2]
+    ford_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
 
     return ford_metrics_df
 
-def ford_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y_test, ford_metrics_df):
+def ford_Generalized_Linear_Model(X_train_scaled, y_train, ford_metrics_df):
     """
     Fits a Generalized Linear Model (GLM) and evaluates its performance.
 
@@ -544,33 +483,39 @@ def ford_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y_test
         'alpha': [0, 0.5, 1],  # Example values for alpha
         'power': [0, 1, 2]  # Example values for power
     }
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
 
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
+    #best_model = grid_search.best_estimator_
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
     # Make predictions on the test data using the best model
-    pred_test_glm = best_model.predict(X_test_scaled)
+    #pred_test_glm = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = ford_metrics_reg(y_test, pred_test_glm)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_glm)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    ford_metrics_df.loc[4] = ['Generalized Linear Model', rmse, r2]
+    ford_metrics_df.loc[2] = ['Generalized Linear Model', abs(best_score), best_r2]
 
     return ford_metrics_df
+
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 
-def ford_polynomial_regression(X_train_scaled, X_test_scaled, y_train, y_test, ford_metrics_df):
+def ford_polynomial_regression(X_train_scaled, y_train, ford_metrics_df):
     """
     Performs polynomial regression and evaluates the model's performance.
 
@@ -594,27 +539,32 @@ def ford_polynomial_regression(X_train_scaled, X_test_scaled, y_train, y_test, f
     param_grid = {
         'polynomialfeatures__degree': [1, 2, 3, 4, 5]  
     }
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
 
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
     best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
-    # Make predictions on the test data using the best model
-    pred_test_pr = best_model.predict(X_test_scaled)
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+    ## Make predictions on the test data using the best model
+    #pred_test_pr = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = ford_metrics_reg(y_test, pred_test_pr)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    ford_metrics_df.loc[3] = ['Polynomial Regression(PR)', rmse, r2]
+    ford_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
 
-    return ford_metrics_df
+    return ford_metrics_df, best_model
 
 def ford_prediction_Q2_2023_revenue(model, ford_revenue_prediction_scaled):
     # Pass the preprocessed single line of data to the best_model
@@ -622,6 +572,13 @@ def ford_prediction_Q2_2023_revenue(model, ford_revenue_prediction_scaled):
 
     # Print the predicted value
     print("Ford Motor Company's predicted 2023 Q2 revenue is" , pred_value)
+
+def ford_best_model_on_test(X_test_scaled, best_model, y_test):
+    sb_pred_test = best_model.predict(X_test_scaled)
+
+    rmse, r2 = ford_metrics_reg(y_test, sb_pred_test)
+
+    return rmse, r2
 
 def get_att_Q1_2023_data_for_prediction():
     # prepare 2023 quarter 1 data for prediction of quarter 2 revenue
@@ -734,51 +691,7 @@ def att_baseline_model(train, y_train):
     print(f' Baseline mean is : {baseline}')
     return att_metrics_df
 
-def att_multiple_regression(X_train_scaled, X_test_scaled, y_train, y_test, att_metrics_df):
-    """
-    Performs multiple regression using Recursive Feature Elimination (RFE) and evaluates the model's performance.
-
-    Parameters:
-        X_train_scaled (pandas DataFrame): The scaled feature variables of the training data.
-        X_test_scaled (pandas DataFrame): The scaled feature variables of the test data.
-        y_train (pandas Series): The target variable for the training data.
-        y_test (pandas Series): The target variable for the test data.
-        metrics_df (pandas DataFrame): A DataFrame to store the evaluation metrics.
-
-    Returns:
-        pandas DataFrame: The updated metrics DataFrame with the evaluation metrics of the multiple regression model.
-    """
-    # Define the model
-    model = LinearRegression()
-
-    # Create the RFE object
-    rfe = RFE(estimator=model, n_features_to_select=27)  
-
-    # Fit the RFE object to the training data
-    rfe.fit(X_train_scaled, y_train)
-
-    # Get the selected features
-    selected_features = X_train_scaled.columns[rfe.support_].tolist()
-
-    # Transform the data using the selected features
-    X_train_rfe = rfe.transform(X_train_scaled)
-    X_test_rfe = rfe.transform(X_test_scaled)
-
-    # Fit the model on the transformed training data
-    model.fit(X_train_rfe, y_train)
-
-    # Make predictions on the transformed test data
-    pred_test_OLS = model.predict(X_test_rfe)
-
-    # Evaluate the model on the test data
-    rmse, r2 = att_metrics_reg(y_test, pred_test_OLS)
-
-    # Add evaluation metrics to the provided metrics DataFrame
-    att_metrics_df.loc[1] = ['Multiple Regression', rmse, r2]
-
-    return att_metrics_df
-
-def att_LassoLars_model(X_train_scaled, X_test_scaled, y_train, y_test, att_metrics_df):
+def att_LassoLars_model(X_train_scaled, y_train, att_metrics_df):
     """
     Performs LassoLars regression and evaluates the model's performance.
 
@@ -799,28 +712,34 @@ def att_LassoLars_model(X_train_scaled, X_test_scaled, y_train, y_test, att_metr
         'normalize': [True, False]
     }
 
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
+
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
-    # Make predictions on the test data using the best model
-    pred_test_lars = best_model.predict(X_test_scaled)
+    #best_model = grid_search.best_estimator_
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+    ## Make predictions on the test data using the best model
+    #pred_test_pr = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = att_metrics_reg(y_test, pred_test_lars)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    att_metrics_df.loc[2] = ['LassoLars', rmse, r2]
+    att_metrics_df.loc[1] = ['LassoLars', abs(best_score), best_r2]
 
     return att_metrics_df
 
-def att_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y_test, att_metrics_df):
+def att_Generalized_Linear_Model(X_train_scaled, y_train, att_metrics_df):
     """
     Fits a Generalized Linear Model (GLM) and evaluates its performance.
 
@@ -841,24 +760,30 @@ def att_Generalized_Linear_Model(X_train_scaled, X_test_scaled, y_train, y_test,
         'power': [0, 1, 2]  # Example values for power
     }
 
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
+
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
-    best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
-    # Make predictions on the test data using the best model
-    pred_test_glm = best_model.predict(X_test_scaled)
+    #best_model = grid_search.best_estimator_
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+    ## Make predictions on the test data using the best model
+    #pred_test_pr = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = att_metrics_reg(y_test, pred_test_glm)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    att_metrics_df.loc[4] = ['Generalized Linear Model', rmse, r2]
+    att_metrics_df.loc[2] = ['Generalized Linear Model(GLM)', abs(best_score), best_r2]
 
     return att_metrics_df
 
@@ -867,7 +792,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 
-def att_polynomial_regression(X_train_scaled, X_test_scaled, y_train, y_test, att_metrics_df):
+def att_polynomial_regression(X_train_scaled, y_train, att_metrics_df):
     """
     Performs polynomial regression and evaluates the model's performance.
 
@@ -892,24 +817,30 @@ def att_polynomial_regression(X_train_scaled, X_test_scaled, y_train, y_test, at
         'polynomialfeatures__degree': [1, 2, 3, 4, 5]  
     }
 
+    scoring = {
+    'RMSE': make_scorer(mean_squared_error, squared=False),
+    'r2': make_scorer(r2_score),
+    }
+
     # Create the GridSearchCV object
-    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+    grid_search = GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring = scoring, cv=5, refit='r2')
 
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
     # Get the best model and its hyperparameters
     best_model = grid_search.best_estimator_
-    best_params = grid_search.best_params_
-
-    # Make predictions on the test data using the best model
-    pred_test_pr = best_model.predict(X_test_scaled)
+    #best_params = grid_search.best_params_
+    best_score = grid_search.best_score_
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
+    ## Make predictions on the test data using the best model
+    #pred_test_pr = best_model.predict(X_test_scaled)
 
     # Evaluate the model on the test data
-    rmse, r2 = att_metrics_reg(y_test, pred_test_pr)
+    #rmse, r2 = starbucks_metrics_reg(y_test, pred_test_pr)
 
     # Add evaluation metrics to the provided metrics DataFrame
-    att_metrics_df.loc[3] = ['Polynomial Regression(PR)', rmse, r2]
+    att_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
 
     return att_metrics_df, best_model
 
@@ -920,3 +851,9 @@ def att_prediction_Q2_2023_revenue(best_model, att_revenue_prediction_scaled):
     # Print the predicted value
     print("ATT's predicted 2023 Q2 revenue is" , pred_value)
 
+def att_best_model_on_test(X_test_scaled, best_model, y_test):
+    sb_pred_test = best_model.predict(X_test_scaled)
+
+    rmse, r2 = ford_metrics_reg(y_test, sb_pred_test)
+
+    return rmse, r2
