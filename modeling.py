@@ -600,6 +600,7 @@ def ford_polynomial_regression(X_train_scaled, y_train, ford_metrics_df):
     ford_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), corresponding_r2]
 
     return ford_metrics_df
+
 def ford_prediction_Q2_2023_revenue(model, ford_revenue_prediction_scaled):
     """
     Predicts Ford Motor Company's revenue for the second quarter of 2023.
