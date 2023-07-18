@@ -30,13 +30,13 @@ def get_starbucks_Q1_2023_data_for_prediction():
     this_is_it = pd.read_csv('values_for_prediction_ford_adjusted.csv')
 
     # Select statistically significant features for revenue prediction
-    starbucks_revenue_prediction = this_is_it[['population', 'median_house_income', 'unemp_rate',
-                                               'home_ownership_rate', 'government_spending',
-                                               'gdp_deflated', 'violent_crime_rate',
-                                               'cpi_all_items_avg', 'eci', 'dow', 's_and_p',
-                                               'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money',
-                                               'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
-                                               'c_e_s_housing', 'c_e_s_health', 'ease_of_doing_business']]
+    starbucks_revenue_prediction = this_is_it[['population','median_house_income', 'unemp_rate',
+                                           'home_ownership_rate', 'government_spending',
+                                           'gdp_deflated','violent_crime_rate',
+                                           'cpi_all_items_avg','eci', 'dow', 's_and_p', 
+                                           'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
+                                           'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
+                                           'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
     return starbucks_revenue_prediction
 
 def starbucks_scaled_df(train, test, starbucks_revenue_prediction):
@@ -58,19 +58,19 @@ def starbucks_scaled_df(train, test, starbucks_revenue_prediction):
             starbucks_revenue_prediction_scaled (pandas DataFrame): The scaled Starbucks revenue prediction data.
     """
     X_train = train[['population','median_house_income', 'unemp_rate',
-                     'home_ownership_rate', 'government_spending',
-                     'gdp_deflated','violent_crime_rate',
-                     'cpi_all_items_avg','eci', 'dow', 's_and_p', 
-                     'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
-                     'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
-                     'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
+                                           'home_ownership_rate', 'government_spending',
+                                           'gdp_deflated','violent_crime_rate',
+                                           'cpi_all_items_avg','eci', 'dow', 's_and_p', 
+                                           'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
+                                           'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
+                                           'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
     X_test = test[['population','median_house_income', 'unemp_rate',
-                   'home_ownership_rate', 'government_spending',
-                   'gdp_deflated','violent_crime_rate',
-                   'cpi_all_items_avg','eci', 'dow', 's_and_p', 
-                   'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
-                   'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
-                   'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
+                                           'home_ownership_rate', 'government_spending',
+                                           'gdp_deflated','violent_crime_rate',
+                                           'cpi_all_items_avg','eci', 'dow', 's_and_p', 
+                                           'Man_new_order', 'hdi', 'auto_loan', 'velocity_of_money', 
+                                           'wti', 'brent_oil', 'case_shiller_index', 'number_of_disaster',
+                                           'c_e_s_housing', 'c_e_s_health','ease_of_doing_business']]
 
     y_train = train.adjusted_revenue_S
     y_test = test.adjusted_revenue_S
@@ -273,7 +273,7 @@ def starbucks_polynomial_regression(X_train_scaled, y_train, starbucks_metrics_d
 
     # Get the best model rmse and r2
     best_score = grid_search.best_score_
-    best_r2 = best_model.score(X_train_scaled, y_train)
+    best_r2 = grid_search.best_estimator_.score(X_train_scaled, y_train)
 
     # Add evaluation metrics to the provided metrics DataFrame
     starbucks_metrics_df.loc[3] = ['Polynomial Regression(PR)', abs(best_score), best_r2]
