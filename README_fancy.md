@@ -1,31 +1,34 @@
-# Project Apollo - ReadME
+<h2 style="text-align:center; font-weight:bold;">Project Apollo - ReadME</h2>
+
+
+
+<h2 style="text-align:center; font-weight:bold;">Predicting Revenue for Ford, ATT, Starbucks</h2>
+
+<!-- #region -->
 
 
 <!-- Badges Table -->
-<table style="background-color: #f7f7f7;">
+<table style="background-color: #f7f7f7; margin: 0 auto; width: 100%;">
   <tr>
-<td><a href="https://shareholder.ford.com/Investors/Home/default.aspx"><img 
-src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Ford_logo.svg" width="80" height="60"></a><td>
-<td><a href="https://investors.att.com/"><img 
-src="https://upload.wikimedia.org/wikipedia/commons/3/31/AT%26T_logo_2016.svg" width="80" height="60"></a><td>
-<td><a href="https://investor.starbucks.com/ir-home/default.aspx"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg" width="80" height="40"></a><td>
+    <td style="text-align: center;"><a href="https://shareholder.ford.com/Investors/Home/default.aspx"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Ford_logo.svg" width="80" height="60"></a></td>
+    <td style="text-align: center;"><a href="https://investors.att.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/3/31/AT%26T_logo_2016.svg" width="80" height="60"></a></td>
+    <td style="text-align: center;"><a href="https://investor.starbucks.com/ir-home/default.aspx"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg" width="80" height="40"></a></td>
   </tr>
 </table>
 
+<!-- #endregion -->
 
+<h2 style="text-align: center; font-weight: bold;">Tools used</h2>
 
-# Tools Used
-
-<!-- Badges Table -->
-<table style="background-color: #f7f7f7;">
+<!-- Icons container table -->
+<table style="margin: 0 auto; width: 100%;">
   <tr>
-    <td><a href="https://pandas.pydata.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pandas_logo.svg/1200px-Pandas_logo.svg.png" width="80" height="40"></a></td>
-    <td><a href="https://numpy.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NumPy_logo.svg/1280px-NumPy_logo.svg.png" width="80" height="40"></a></td>
-    <td><a href="https://scipy.org/"><img 
-src="https://upload.wikimedia.org/wikipedia/commons/b/b2/SCIPY_2.svg" width="80" height="40"></a></td>
-    <td><a href="https://matplotlib.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Matplotlib_icon.svg/1200px-Matplotlib_icon.svg.png" width="80" height="40"></a></td>
-    <td><a href="https://seaborn.pydata.org/"><img src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" width="80" height="40"></a></td>
-    <td><a href="https://scikit-learn.org/stable/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/1024px-Scikit_learn_logo_small.svg.png" width="80" height="40"></a></td>
+    <td style="text-align: center;"><a href="https://pandas.pydata.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pandas_logo.svg/1200px-Pandas_logo.svg.png" width="80" height="40"></a></td>
+    <td style="text-align: center;"><a href="https://numpy.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NumPy_logo.svg/1280px-NumPy_logo.svg.png" width="80" height="40"></a></td>
+    <td style="text-align: center;"><a href="https://scipy.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/SCIPY_2.svg" width="80" height="40"></a></td>
+    <td style="text-align: center;"><a href="https://matplotlib.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Matplotlib_icon.svg/1200px-Matplotlib_icon.svg.png" width="80" height="40"></a></td>
+    <td style="text-align: center;"><a href="https://seaborn.pydata.org/"><img src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" width="80" height="40"></a></td>
+    <td style="text-align: center;"><a href="https://scikit-learn.org/stable/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/1024px-Scikit_learn_logo_small.svg.png" width="80" height="40"></a></td>
   </tr>
 </table>
 
@@ -34,22 +37,53 @@ src="https://upload.wikimedia.org/wikipedia/commons/b/b2/SCIPY_2.svg" width="80"
 
 
 <a name="top"></a>
-## Table of Contents
-- [Description](#Description)
-- [Goal](#Goal)
-- [Initial_Thoughts](#Initial_Thoughts)
-- [Planning](#Planning)
-- [Acquire](#Acquire)
-- [Data_Dictionary](#Data_Dictionary)
-- [Prepare](#Prepare)
-- [Exploration](#Exploration)
-- [Modeling](#Modeling)
-- [Nural_Network](#Nural_Network)
-- [Key_Findings](#Key_Findings)
-- [Steps_to_Reproduce](#Steps_to_Reproduce)
-- [Summary](#Summary)
-- [Conclusion](#Conclusion)
-- [Next_Steps](#Next_Steps)
+<div style="text-align:center;">
+    <h2 style="font-weight:bold;">Table of Contents</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        <div style="margin: 5px;">
+            <a href="#Description">Description</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Goal">Goal</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Initial_Thoughts">Initial_Thoughts</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Planning">Planning</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Acquire">Acquire</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Data_Dictionary">Data_Dictionary</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Prepare">Prepare</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Exploration">Exploration</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Modeling">Modeling</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Nural_Network">Nural_Network</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Steps_to_Reproduce">Steps_to_Reproduce</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Summary">Summary</a>
+        </div>
+        <div style="margin: 5px;">
+            <a href="#Conclusion">Conclusion</a>
+        </div>
+            <div style="margin: 5px;">
+            <a href="#Next_Steps">Next_Steps</a>
+        </div>
+    </div>
+</div>
 
 <details>
 <summary><strong>Description</strong></summary>
@@ -412,7 +446,3 @@ By following these recommendations and embarking on the suggested next steps, or
 
 
 <!-- #endregion -->
-
-```python
-
-```
