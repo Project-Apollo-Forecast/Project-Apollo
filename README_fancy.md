@@ -1,37 +1,122 @@
+# Project Apollo - ReadME
+
+
+<!-- Badges Table -->
+<table style="background-color: #f7f7f7;">
+  <tr>
+<td><a href="https://shareholder.ford.com/Investors/Home/default.aspx"><img 
+src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Ford_logo.svg" width="80" height="60"></a><td>
+<td><a href="https://investors.att.com/"><img 
+src="https://upload.wikimedia.org/wikipedia/commons/3/31/AT%26T_logo_2016.svg" width="80" height="60"></a><td>
+<td><a href="https://investor.starbucks.com/ir-home/default.aspx"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg" width="80" height="40"></a><td>
+  </tr>
+</table>
+
+
+
+# Tools Used
+
+<!-- Badges Table -->
+<table style="background-color: #f7f7f7;">
+  <tr>
+    <td><a href="https://pandas.pydata.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pandas_logo.svg/1200px-Pandas_logo.svg.png" width="80" height="40"></a></td>
+    <td><a href="https://numpy.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NumPy_logo.svg/1280px-NumPy_logo.svg.png" width="80" height="40"></a></td>
+    <td><a href="https://scipy.org/"><img 
+src="https://upload.wikimedia.org/wikipedia/commons/b/b2/SCIPY_2.svg" width="80" height="40"></a></td>
+    <td><a href="https://matplotlib.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Matplotlib_icon.svg/1200px-Matplotlib_icon.svg.png" width="80" height="40"></a></td>
+    <td><a href="https://seaborn.pydata.org/"><img src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" width="80" height="40"></a></td>
+    <td><a href="https://scikit-learn.org/stable/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/1024px-Scikit_learn_logo_small.svg.png" width="80" height="40"></a></td>
+  </tr>
+</table>
+
+
 <!-- #region -->
-# Project - Apollo
 
 
-# Description
-This project predicts the next quarter's revenue for U.S blue chip companies (Ford Motor Company, Starbucks, and ATT), based on 80 quarters (20 years worth) of various economic, social, political, and environmental factors. 
+<a name="top"></a>
+## Table of Contents
+- [Description](#Description)
+- [Goal](#Goal)
+- [Initial_Thoughts](#Initial_Thoughts)
+- [Planning](#Planning)
+- [Acquire](#Acquire)
+- [Data_Dictionary](#Data_Dictionary)
+- [Prepare](#Prepare)
+- [Exploration](#Exploration)
+- [Modeling](#Modeling)
+- [Nural_Network](#Nural_Network)
+- [Key_Findings](#Key_Findings)
+- [Steps_to_Reproduce](#Steps_to_Reproduce)
+- [Summary](#Summary)
+- [Conclusion](#Conclusion)
+- [Next_Steps](#Next_Steps)
 
-# Goal
+<details>
+<summary><strong>Description</strong></summary>
+
+## Description
+
+This project predicts the next quarter's revenue for U.S blue chip companies (Ford Motor Company, Starbucks, and ATT), based on 80 quarters (20 years worth) of various economic, social, political, and environmental factors.
+    
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+    
+<summary><strong>Goal</strong></summary>
+
+## Goal
+
 The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
+    
+<a href="#top">Return to Table of Contents</a>
+</details>
 
-# Initial Thoughts
+<details>
+<summary><strong>Initial_Thoughts</strong></summary>
+
+## Initial_Thoughts
+
 "Everything, Everywhere, all at once" — this profound quote encapsulates the concept of the interconnectedness of all things across different locations and scenarios, occurring simultaneously. With this in mind, our project focuses on uncovering influential features within data segments from diverse sectors, which can have substantial impacts on revenue performance. By acquiring these subtle insights, decision-makers can be equipped with advanced knowledge of the external factors influencing their revenues, enabling them to adapt their business strategies accordingly.
 
-- With the above in mind, some initial questions we had:
-    - Are our target variables normally distributed?
-    - What features are statistically significant to our targets?
-    - Can the same features work for multiple targets? (Targets tested separately)
-    - What are the impacts of negative and positive correlating features?
+With the above in mind, some initial questions we had:
+- Are our target variables normally distributed?
+- What features are statistically significant to our targets?
+- Can the same features work for multiple targets? (Targets tested separately)
+- What are the impacts of negative and positive correlating features?
 
-# Planning:
-Generated a range of innovative ideas for revenue-affecting features through productive brainstorming sessions.
-Organized tasks using a Kanban board, efficiently tracking their progress under categories like 'Needs to be done', 'Doing', and 'Done'.
-Collaboratively compiled and maintained a shared knowledge document, ensuring seamless dissemination of new information, ideas, and functions across the team.
-Set clear milestone due dates and benchmarks, providing a solid foundation for measuring progress and achieving project goals.
+<a href="#top">Return to Table of Contents</a>
+</details>
 
-# Acquire
+<details>
+<summary><strong>Planning</strong></summary>
+
+## Planning
+
+Generated a range of innovative ideas for revenue-affecting features through productive brainstorming sessions. Organized tasks using a Kanban board, efficiently tracking their progress under categories like 'Needs to be done', 'Doing', and 'Done'. Collaboratively compiled and maintained a shared knowledge document, ensuring seamless dissemination of new information, ideas, and functions across the team. Set clear milestone due dates and benchmarks, providing a solid foundation for measuring progress and achieving project goals.
+
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Acquire</strong></summary>
+
+## Acquire
+
 During the "Acquire" phase of our project, we collected a rich dataset comprising 40 features meticulously sourced from over 17 distinct websites. Notable among them are:
 - Federal Reserve Economic Data (FRED)
 - Bureau of Labor & Statistics (BLS)
 - Organization for Economic Cooperation and Development (OECD)
-
+    
 Bringing all this valuable data together, we created a unified and coherent dataframe. This comprehensive dataframe incorporates data spanning two decades, encompassing 80 quarters. Each row represents one quarter, containing all pertinent revenue figures and associated features. See data dictionary below:
-            
-# Data Dictionary
+
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Data_Dictionary</strong></summary>
+
+## Data_Dictionary
 
 | Feature | Definition (measurement)|
 |:--------|:-----------|
@@ -61,9 +146,16 @@ Bringing all this valuable data together, we created a unified and coherent data
 |Construction_res|Total amount spent on residential construction (in millions of dollars)|
 |CLI|The composite leading indicator, designed to provide early signals of turning points in business cycles|
 |Soy|Soy bean prices|
-|Misery_index|The measure of economic distress felt by everyday people, due to the risk of (or actual) joblessness combined with an increasing cost of living|            
+|Misery_index|The measure of economic distress felt by everyday people, due to the risk of (or actual) joblessness combined with an increasing cost of living| 
 
-# Prepare
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Prepare</strong></summary>
+
+## Prepare
+
 #### Data Preparation Process:
 
 - Most of the financial data we encountered was relatively clean and had minimal null values.
@@ -87,8 +179,13 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 3. Finally, we isolated 1 line of data. Q1 2023 data was removed and set aside as a separate 1-line dataframe. This dataframe will be used to predict Q2 revenue for Ford, ATT, and Starbucks.
 
+<a href="#top">Return to Table of Contents</a>
+</details>
 
-# Exploration
+<details>
+<summary><strong>Exploration</strong></summary>
+
+## Exploration
 
 #### Data Split and Model Selection:
 - At the outset, we divided our data into training and test sets following a 70/30 split. As our modeling approach incorporates GridSearch, a traditional train-validate-test division was deemed unnecessary.
@@ -104,7 +201,13 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 - By adopting this meticulous approach, we have laid a robust foundation for our predictive modeling and analysis, ensuring the accuracy and relevance of our results.
 
-## Traditional Model Training and Selection
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Modeling</strong></summary>
+
+## Modeling
 
 #### Feature Selection with KBest:
 
@@ -140,13 +243,25 @@ We selected the model that demonstrated the lowest RMSE and the highest $R^2$ va
 
 Finally, using the one-line data frame in concert with the best performing model, we made predictions for the next quarter.
 
-# Nural Network Modeling
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Nural_Network</strong></summary>
+
+## Nural_Network
+
 Words
 - smart things
     - even smarter things
-<!-- #endregion -->
 
-# Some Key Findings
+</details>
+
+<details>
+<summary><strong>Key_Findings</strong></summary>
+
+## Key_Findings
+
 #### Non-Normal Distribution of Targets:
 - Our target variables were found to be non-normally distributed, impacting our choice of statistical methods.
 
@@ -175,9 +290,14 @@ Words
 #### Successful Proof of Concept:
 - Our approach and methodology have been proven successful in building a prediction model, laying a solid foundation for future work.
 
+<a href="#top">Return to Table of Contents</a>
+</details>
 
+<details>
+<summary><strong>Steps_to_Reproduce</strong></summary>
 
-# Steps to Reproduce:
+## Steps_to_Reproduce
+
 To facilitate easy replication of our analysis, follow these steps:
 
 #### Download the compiled CSV file from the Github repository.
@@ -217,12 +337,24 @@ To facilitate easy replication of our analysis, follow these steps:
 
 By following these steps and leveraging the provided functions, you can successfully reproduce our analysis and gain valuable insights from the dataset.
 
-<!-- #region -->
-# Summary
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Summary</strong></summary>
+
+## Summary
 
 The goal of this project was to predict revenue for a Blue Chip Company in the next quarter. We explored the potential of economic, socio-economic, and environmental factors in predicting revenue gains and losses. Overall, the project achieved promising results in predicting revenue for Ford, ATT, and Starbucks, showcasing the potential of the selected features and models.
 
-# Conclusion
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Conclusion</strong></summary>
+
+## Conclusion
+
 We can conclude that our project successfully explored the use of economic, socio-economic, and environmental factors to predict revenue gains and losses for Ford, ATT, and Starbucks. Through rigorous feature selection and testing, we identified key variables and developed models that outperformed baseline predictions and produced respectable RMSE and R2 values.
 
 For Ford, we predict a slight decrease in revenue for Q2 compared to the previous quarter. Meanwhile, the ATT model also demonstrated promising results, projecting an increase in revenue for Q2 compared to Q1. Lastly, the Starbucks model yielded positive outcomes, indicating a slight revenue increase for Q2 in comparison to Q1.
@@ -231,7 +363,13 @@ It is worth mentioning that all the models employed the LassoLars model for thei
 
 Overall, our project highlights the potential of leveraging various factors to predict revenue changes for these companies. While further refinements and validations are needed, these results offer valuable insights and opportunities for future analysis and decision-making in their respective industries.
 
-# Next Steps
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+<details>
+<summary><strong>Next_Steps</strong></summary>
+
+## Next_Steps
 
 Based on the project findings, we can make the following recommendations and outline potential next steps:
 
@@ -266,4 +404,15 @@ Based on the project findings, we can make the following recommendations and out
 
 By following these recommendations and embarking on the suggested next steps, organizations can leverage data-driven revenue predictions to make informed decisions, optimize business strategies, and gain a competitive edge in the market.
 
+<a href="#top">Return to Table of Contents</a>
+</details>
+
+
+
+
+
 <!-- #endregion -->
+
+```python
+
+```
