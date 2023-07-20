@@ -15,7 +15,7 @@
 
 <p>
   <a href="https://github.com/Andrew-Casey" target="_blank">
-    <img alt="Andrew" src="https://img.shields.io/github/followers/Andrew-Casey92?label=Follow_Andrew&style=social" />
+    <img alt="Andrew" src="https://img.shields.io/github/followers/Andrew-Casey?label=Follow_Andrew&style=social" />
   </a> 
   <a href="https://github.com/corey-hermesch" target="_blank">
     <img alt="Corey" src="https://img.shields.io/github/followers/corey-hermesch?label=Follow_Corey&style=social" />
