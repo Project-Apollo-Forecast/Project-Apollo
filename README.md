@@ -11,7 +11,7 @@
 - The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
 
 # <a name="top"></a> Project Apollo - README.md
-![Banner](Photos/Banner.png)
+![Banner](Photos/banner.png)
 <p>
   <a href="https://github.com/Andrew-Casey" target="_blank">
     <img alt="Andrew" src="https://img.shields.io/github/followers/Andrew-Casey92?label=Follow_Andrew&style=social" />
