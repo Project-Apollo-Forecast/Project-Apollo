@@ -2,17 +2,6 @@
 
 
 # Blue Chip Capstone 
-***
-
-### Project Description:
-- This project predicts the next quarter's revenue for U.S blue chip companies (Ford Motor Company, Starbucks, and ATT), based on 80 quarters (20 years worth) of various economic, social, political, and environmental factors.
-
-### Project Goal:
-- The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
-***
- 
-![Banner](Photos/banner.png)
-
 <p>
   <a href="https://github.com/Andrew-Casey" target="_blank">
     <img alt="Andrew" src="https://img.shields.io/github/followers/Andrew-Casey?label=Follow_Andrew&style=social" />
@@ -24,6 +13,18 @@
     <img alt="Oliver" src="https://img.shields.io/github/followers/OKPTaylor?label=Follow_Oliver&style=social" />  
   </a>
 </p>
+***
+
+### Project Description:
+- This project predicts the next quarter's revenue for a U.S. Blue Chip company. A blue chip company is simply a large company that is well-established, financially sound, and has an excellent reputation. These companies must make decisions about how to posture their resources to meet customer demand and optimize revenue. How many trucks should Ford build? How much coffee should Starbucks buy? This project takes a dataset consisting of 80 quarters worth (20 years) of 38 different national economic, social, political, and environmental measures. It uses that data to train a machine-learning model to use this quarter's data to predict next quarter's revenue for three blue-chip companies: Ford, Starbucks, and AT&T.
+
+### Project Goal:
+- The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
+***
+ 
+![Banner](Photos/banner.png)
+
+***
 
 ### Tools & Technologies Used: 
 
@@ -64,7 +65,9 @@ ___
 
 ***
     
-"Everything, Everywhere, all at once" — this profound quote encapsulates the concept of the interconnectedness of all things across different locations and scenarios, occurring simultaneously. With this in mind, our project focuses on uncovering influential features within data segments from diverse sectors, which can have substantial impacts on revenue performance. By acquiring these subtle insights, decision-makers can be equipped with advanced knowledge of the external factors influencing their revenues, enabling them to adapt their business strategies accordingly.
+Inspired by the profound quote, 'Everything, Everywhere, all at once,' our project delves into the fascinating world of interconnectedness, recognizing how various elements across different locations and scenarios influence each other simultaneously. Our primary objective revolves around uncovering influential features hidden within data segments from diverse sectors. These features hold the potential to significantly impact revenue performance.
+
+By gaining a deep understanding of these subtle insights, our aim is to empower decision-makers with advanced knowledge of the external factors that shape their revenues. This newfound awareness equips them to adapt their business strategies proactively, leveraging this valuable information to drive success in their ventures.
 
 With the above in mind, some initial questions we had:
 - Are our target variables normally distributed?
@@ -84,7 +87,10 @@ With the above in mind, some initial questions we had:
 
 ***
     
-Generated a range of innovative ideas for revenue-affecting features through productive brainstorming sessions. Organized tasks using a Kanban board, efficiently tracking their progress under categories like 'Needs to be done', 'Doing', and 'Done'. Collaboratively compiled and maintained a shared knowledge document, ensuring seamless dissemination of new information, ideas, and functions across the team. Set clear milestone due dates and benchmarks, providing a solid foundation for measuring progress and achieving project goals.
+- Generated a range of innovative ideas for revenue-affecting features through productive brainstorming sessions. 
+- Organized tasks using a Kanban board, efficiently tracking their progress under categories like 'Needs to be done', 'Doing', and 'Done'. 
+- Collaboratively compiled and maintained a shared knowledge document, ensuring seamless dissemination of new information, ideas, and functions across the team. 
+- Set clear milestone due dates and benchmarks (including measures of success), providing a solid foundation for measuring progress and achieving project goals.
 
 ***
     
@@ -177,6 +183,29 @@ Bringing all this valuable data together, we created a unified and coherent data
 - For variables where it made sense, we filled in missing values using a 3-period weighted moving average.
 
 - However, for variables where filling in missing data would be unreliable, we decided to drop those variables.
+    - Variables dropped:
+        - Personal Consumption Expenditures
+        - Air Quality
+        - Happiness Index
+        - Flu Season Severity
+        - Jobs Added
+        - Producer Price Index
+        - Household Debt to Income Ratio
+        - Air Travel
+        - Number of Weddings/Divorces
+        - Legal Immigration
+        - Inventory to Sales Ratio
+        - Business Confidence Index
+        - Natural Disasters
+        - Number of Conflicts
+    
+    - Variables with missing values filled
+        - Median Household Income
+        - Consumer Expenditure Survey (Health)
+        - Consumer Expenditure Survey (Housing)
+        - Consumer Expenditure Survey (Entertainment)
+        - Consumer Confidence Index
+
     
 ***
     
@@ -199,7 +228,7 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 2. Next, we removed the top row, which contained data relevant to predicting Q3 2023. (Unnecessary for this study)
 
-3. Finally, we isolated 1 line of data. Q1 2023 data was removed and set aside as a separate 1-line dataframe. This dataframe will be used to predict Q2 revenue for Ford, ATT, and Starbucks.
+3. After meticulous data analysis, we successfully isolated a single line of crucial data, representing Q1 2023. This significant data was set aside as a separate 1-line dataframe, and it holds the key to predicting Q2 revenue for industry giants like Ford, ATT, and Starbucks. As we progress through the project, we eagerly await the Q2 revenue numbers for Ford and ATT, scheduled for release on 27th and 26th July 2023, respectively. Starbucks, on the other hand, will reveal their information on 1st August 2023. These official figures will serve as our benchmark to verify and validate the accuracy of our predictions.
 
 
     
@@ -217,7 +246,7 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 ***
     
-- At the outset, we divided our data into training and test sets following a 70/30 split. As our modeling approach incorporates GridSearch, a traditional train-validate-test division was deemed unnecessary.
+- At the outset, we divided our data into training and test sets following a 75/25 split. As our modeling approach incorporates GridSearch, a traditional train-validate-test division was deemed unnecessary.
 
 ***
 #### Testing for Normalcy and Statistical Methodology:
@@ -337,7 +366,9 @@ Words
 #### Starbucks as DOW and S&P 500 Proxy:
     
 ***    
+    
 - While not officially designated as a proxy, Starbucks' revenue shows a close alignment with the movement of the DOW and S&P 500, making it a 'de-facto' proxy.
+    - A "Dow proxy" or "S&P 500 proxy" typically refers to an investment or financial instrument that closely mimics the performance of the Dow Jones Industrial Average or Standard and Poor's 500. 
 
 *** 
     
@@ -353,7 +384,7 @@ Words
     
 ***
     
-- Though Ford's revenue has increased since 2003, their inflation adjusted revenue has decreased. Their most noticeable decrease was in 2008 
+- While Ford's overall revenue has shown an upward trend since 2003, the picture changes when we account for inflation. Inflation-adjusted revenue reveals a different story, indicating a decline over the years. The most significant decrease occurred during the 2008 financial crisis, where revenue plummeted from 61.8B in Q4 2007 to 34.98B in Q4 2008, resulting in a substantial 26.88B decrease. Despite some recovery, particularly in Q3 2009, with revenue reaching around 49.18B, Ford never fully bounced back from the impact of the Great Recession. Since then, their revenue has remained relatively stable, albeit at a lower level. (All figures presented are in inflation-adjusted dollars.)
 
 ***
     
@@ -386,7 +417,14 @@ Words
 
 ***
     
-- Out of 38 features, 10 were found to be correlated with all three companies, while 6 did not correlate with any of the three.
+- Out of 38 (total features before removing unnecessary columns) :
+    - 10 were found to be correlated with all three companies 
+    - 6 did not correlate with any of the three.
+We used the following combinations for our targets (after KBest feature selection:
+    - Ford: 15 features
+    - Starbucks: 19 features
+    - AT&T: 13 features
+
 
 ***
     
@@ -413,7 +451,7 @@ To facilitate easy replication of our analysis, follow these steps:
 ***    
 
 - Read the CSV into a notebook using the following command:
-    - df = pd.read_csv("name_of_file.csv")
+    - df = pd.read_csv("entire_df_ford_starbucks_att_adjusted.csv.csv")
 
 ***
     
