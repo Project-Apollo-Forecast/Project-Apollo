@@ -1,17 +1,18 @@
 <!-- #region -->
 
 
-# Blue Chip Capstone
+# Blue Chip Capstone 
 ***
 
-## Project Description:
+### Project Description:
 - This project predicts the next quarter's revenue for U.S blue chip companies (Ford Motor Company, Starbucks, and ATT), based on 80 quarters (20 years worth) of various economic, social, political, and environmental factors.
 
-## Project Goal:
+### Project Goal:
 - The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
-
-# <a name="top"></a> Project Apollo - README.md
+***
+ 
 ![Banner](Photos/banner.png)
+
 <p>
   <a href="https://github.com/Andrew-Casey" target="_blank">
     <img alt="Andrew" src="https://img.shields.io/github/followers/Andrew-Casey92?label=Follow_Andrew&style=social" />
@@ -39,18 +40,19 @@
 ![](https://img.shields.io/badge/TensorFlow-2.6.0-FF6F00?logo=tensorflow)
 
 ***
-[Initial Thoughts](#Initial_Thoughts)
-[Planning](#Planning)
-[Acquire](#Acquire)
-[Data Dictionary](#Data_Dictionary)
-[Prepare](#Prepare)
-[Exploration](#Exploration)
-[Modeling](#Modeling)
-[Neural Network](#Neural_Network)
-[Steps to Reproduce](#Steps_to_Reproduce)
-[Summary](#Summary)
-[Conclusion](#Conclusion)
-[Next Steps](#Next_Steps)
+<a name="top"></a>
+[[Initial Thoughts](#Initial_Thoughts)]
+[[Planning](#Planning)]
+[[Acquire](#Acquire)]
+[[Data Dictionary](#Data_Dictionary)]
+[[Prepare](#Prepare)]
+[[Exploration](#Exploration)] 
+[[Modeling](#Modeling)]
+[[Neural Network](#Neural_Network)]
+[[Steps to Reproduce](#Steps_to_Reproduce)]
+[[Summary](#Summary)]
+[[Conclusion](#Conclusion)]
+[[Next Steps](#Next_Steps)]
 ___
 
 
