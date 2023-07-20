@@ -13,6 +13,7 @@
     <img alt="Oliver" src="https://img.shields.io/github/followers/OKPTaylor?label=Follow_Oliver&style=social" />  
   </a>
 </p>
+
 ***
 
 ### Project Description:
@@ -22,7 +23,6 @@
 - The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
 ***
 
-![Banner](Photos/banner.png)
 ### Click buttons below for investor relations information:
 <p>
   <a href="https://investor.starbucks.com/ir-home/default.aspx" target="_blank">
@@ -42,7 +42,6 @@
   </a>
 </p>
 
-
 ***
 
 ### Tools & Technologies Used: 
@@ -60,6 +59,7 @@
 ![](https://img.shields.io/badge/TensorFlow-2.6.0-FF6F00?logo=tensorflow)
 
 ***
+## Table of Contents:
 <a name="top"></a>
 [[Initial Thoughts](#Initial_Thoughts)]
 [[Planning](#Planning)]
@@ -89,7 +89,7 @@ Inspired by the profound quote, 'Everything, Everywhere, all at once,' our proje
 By gaining a deep understanding of these subtle insights, our aim is to empower decision-makers with advanced knowledge of the external factors that shape their revenues. This newfound awareness equips them to adapt their business strategies proactively, leveraging this valuable information to drive success in their ventures.
 
 With the above in mind, some initial questions we had:
-- Are our target variables normally distributed?
+- Are the target variables normally distributed?
 - What features are statistically significant to our targets?
 - Can the same features work for multiple targets? (Targets tested separately)
 - What are the impacts of negative and positive correlating features?
