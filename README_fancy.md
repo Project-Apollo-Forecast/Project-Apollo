@@ -4,6 +4,26 @@
 
 <h2 style="text-align:center; font-weight:bold;">Predicting Revenue for Ford, ATT, Starbucks</h2>
 
+
+<!-- Resized and oriented images -->
+<p align="center">
+    <a href="https://shareholder.ford.com/Investors/Home/default.aspx">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Ford_logo.svg" width="100" height="75">
+    </a>
+    <a href="https://investors.att.com/">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/AT%26T_logo_2016.svg" width="100" height="75">
+    </a>
+    <a href="https://investor.starbucks.com/ir-home/default.aspx">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg" width="120" height="60">
+    </a>
+</p>
+
+
+[![Ford](https://upload.wikimedia.org/wikipedia/commons/d/d8/Ford_logo.svg)](https://shareholder.ford.com/Investors/Home/default.aspx)
+[![AT&T](https://upload.wikimedia.org/wikipedia/commons/3/31/AT%26T_logo_2016.svg)](https://investors.att.com/)
+[![Starbucks](https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg)](https://investor.starbucks.com/ir-home/default.aspx)
+
+
 <!-- #region -->
 
 
@@ -33,57 +53,25 @@
 </table>
 
 
+
+<h2 style="text-align:center; font-weight:bold;">Table of Contents</h2>
+
 <!-- #region -->
-
-
 <a name="top"></a>
-<div style="text-align:center;">
-    <h2 style="font-weight:bold;">Table of Contents</h2>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-        <div style="margin: 5px;">
-            <a href="#Description">Description</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Goal">Goal</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Initial_Thoughts">Initial_Thoughts</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Planning">Planning</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Acquire">Acquire</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Data_Dictionary">Data_Dictionary</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Prepare">Prepare</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Exploration">Exploration</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Modeling">Modeling</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Nural_Network">Nural_Network</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Steps_to_Reproduce">Steps_to_Reproduce</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Summary">Summary</a>
-        </div>
-        <div style="margin: 5px;">
-            <a href="#Conclusion">Conclusion</a>
-        </div>
-            <div style="margin: 5px;">
-            <a href="#Next_Steps">Next_Steps</a>
-        </div>
-    </div>
-</div>
+- [Description](#Description)
+- [Goal](#Goal)
+- [Initial Thoughts](#Initial_Thoughts)
+- [Planning](#Planning)
+- [Acquire](#Acquire)
+- [Data Dictionary](#Data_Dictionary)
+- [Prepare](#Prepare)
+- [Exploration](#Exploration)
+- [Modeling](#Modeling)
+- [Neural Network](#Neural_Network)
+- [Steps to Reproduce](#Steps_to_Reproduce)
+- [Summary](#Summary)
+- [Conclusion](#Conclusion)
+- [Next Steps](#Next_Steps)
 
 <details>
 <summary><strong>Description</strong></summary>
@@ -446,3 +434,7 @@ By following these recommendations and embarking on the suggested next steps, or
 
 
 <!-- #endregion -->
+
+```python
+
+```
