@@ -125,35 +125,51 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 ***
 
-| Feature | Definition (measurement)|
-|:--------|:-----------|
-|adjusted_revenue| The total quarterly revenue of the target Company in dollars adjusted for inflation|
-|Year| The year of the data |
-|Quarter| The quarter of the data |
-|Population|The U.S. population for the quarter| 
-|Median_house_income| The median household income per quarter in dollars|
-|Federal_fund_rate| The interest rate that U.S. banks pay one another top borrow or loan money overnight (percentage)|
-|Unemp_rate| The unemployment rate, the number of residents without a job and looking for work divided by the total number of residents|
-|Home_ownership_rate| Home ownership rate by population|
-|Government_spending| Government spending in billions of dollars|
-|Gdp_deflated| measures changes in the prices of goods and services produced in the United States|
-|Cpi_all_items_avg| Measures price change experienced by urban consumers; the average change in price over time of a market basket of consumer goods and services|
-|Avg_temperature| The avg temperature in fahrenheit for the quarter|
-|Avg_precipitation| The avg rainfall in inches for the quarter|
-|Palmer_drought_index| The magnitude of PDSI indicates the severity of the departure from normal soil moisture conditions|
-|eci|The Employment Cost Index, is a quarterly measure of the change in the price of labor, defined as compensation per employee hour worked|
-|dow|Quarterly Dow Jones Industrial average|
-|P_election| If it is a presidential election year (1=yes)|
-|Midterm_election| If it is a midterm election year (1=yes)|
-|Violent_crime_rate|Violent crimes (involve force or threat of force) per 100,000 |
-|Consumer_confidence_index| An indication of future developments based on households' responses 100+ being a positive outlook|
-|Case_shiller_index| benchmark of average single-family home prices in the U.S., calculated monthly based on changes in home prices over the prior three months |
-|Prime| The prime rate is the interest rate that commercial banks charge creditworthy customers|
-|Man_new_order|Motor Vehicles and Parts, Monthly, Seasonally Adjusted (in millions of dollars)|
-|Construction_res|Total amount spent on residential construction (in millions of dollars)|
-|CLI|The composite leading indicator, designed to provide early signals of turning points in business cycles|
-|Soy|Soy bean prices|
-|Misery_index|The measure of economic distress felt by everyday people, due to the risk of (or actual) joblessness combined with an increasing cost of living| 
+| Feature | Definition | Unit of Measurement|
+|:--------|:-----------|:---------------|
+|Adjusted_revenue| The total quarterly revenue of the target Company in dollars adjusted for inflation| U.S. Dollars, float|
+|Year| The year of the data |0000 year format|
+|Quarter| The quarter of the data |int 1-4|
+|Population|The U.S. population for the quarter|int|
+|Median_house_income| The median household income per quarter in dollars| U.S. Dollars, float|
+|Federal_fund_rate| The interest rate that U.S. banks pay one another top borrow or loan money overnight|percentage, float|
+|Unemp_rate| The unemployment rate, the number of residents without a job and looking for work divided by the total number of residents|percentage, float|
+|Home_ownership_rate| Home ownership rate by population|percentage, float|
+|Government_spending| Government spending in billions of dollars|U.S. Dollars, float|
+|Gdp_deflated| Measures changes in the prices of goods and services produced in the United States|float|
+|Cpi_all_items_avg| Measures price change experienced by urban consumers; the average change in price over time of a market basket of consumer goods and services|float|
+|Avg_temperature| The avg temperature for the quarter| float, fahrenheit|
+|Avg_precipitation| The avg rainfall for the quarter|float, inches|
+|Palmer_drought_index| The magnitude of PDSI indicates the severity of the departure from normal soil moisture conditions|float|
+|Eci|The Employment Cost Index, is a quarterly measure of the change in the price of labor, defined as compensation per employee hour worked|float|
+|Dow|Quarterly Dow Jones Industrial average| float|
+|P_election| If it is a presidential election year (1=yes)|int, 0-1|
+|Midterm_election| If it is a midterm election year (1=yes)|int, 0-1|
+|Violent_crime_rate|Violent crimes (involve force or threat of force) per 100,000 |percentage, float|
+|Consumer_confidence_index| An indication of future developments based on households' responses 100+ being a positive outlook|float|
+|Case_shiller_index| Benchmark of average single-family home prices in the U.S., calculated monthly based on changes in home prices over the prior three months|float|
+|Prime| The prime rate is the interest rate that commercial banks charge creditworthy customers|percentage, float|
+|Man_new_order|Motor Vehicles and Parts, Monthly, Seasonally Adjusted|U.S Dollars, float|
+|Construction_res|Total amount spent on residential construction| U.S. Dollars, float|
+|CLI|The composite leading indicator, designed to provide early signals of turning points in business cycles|float|
+|Soy|Soy bean prices| U.S. Dollars, float|
+|Misery_index|The measure of economic distress felt by everyday people, due to the risk of (or actual) joblessness combined with an increasing cost of living|float|
+|Gas_perc_change| Gas percentage change month over month; 3 month average quarters| percentage, float|
+|S_and_p|Standard and Poor's 500 Index of stocks quarterly average|U.S. Dollars, float|
+|Gini|The Gini index measures the inequality of individual or households 0 being perfectly unequal and 100 being perfectly equal|0-100, int|
+|Hdi| Human development index, a summary composite that measures of a country's health, knowledge and standard of living| float|
+|Auto_loan| The auto loan rate| percentage, float|
+|Velocity_of_money| The frequency at which one unit of currency is used to purchase domestically produced goods/services| float|
+|Loans_and_leases| loans and leases from banks| float|
+|Wti|West Texas Intermediate oil, a benchmark for the US oil market| float|
+|Brent_oil| Brent crude oil prices per quarter| U.S. Dollars, float|
+|Number_of_disaster| The number of FEMA disaster declarations per quarter| int|
+|Business_confidence_index| An indication of future developments based on business responses 100+ being positive| float|
+|C_e_s_housing|Consumer expenditure survey housing, the total amount spent on housing per family unit per year| U.S. Dollars, float|
+|C_e_s_health|Consumer expenditure survey health, the total amount spent on health per family unit per year|U.S. Dollars, float|
+|C_e_s_entertainment|Consumer expenditure survey entertainment, the total amount spent on entertainment per family unit per year| U.S. Dollars, float|
+|Ease_of_doing_business|A score that benchmark economies regulatory performance measured by Doing Business|0-100, float|
+|Wars_started| Number of wars per year| int| 
 
 ***
     
