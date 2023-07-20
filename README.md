@@ -27,17 +27,17 @@
 <p>
   <a href="https://investor.starbucks.com/ir-home/default.aspx" target="_blank">
     <button>
-      <img alt="Starbucks" src="(Photos/starbucks.png)" width="50" height="50" />
+      <img alt="Starbucks" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/starbucks.png" width="50" height="50" />
     </button>
   </a> 
   <a href="https://shareholder.ford.com/Investors/Home/default.aspx" target="_blank">
     <button>
-      <img alt="Ford" src="(Photos/ford.png)" width="50" height="50" />
+      <img alt="Ford" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/ford.png" width="50" height="50" />
     </button>
   </a>
   <a href="https://investors.att.com/" target="_blank">
     <button>
-      <img alt="ATT" src="(Photos/att.png)" width="50" height="50" />  
+      <img alt="ATT" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/att.png" width="50" height="50" />  
     </button>
   </a>
 </p>
