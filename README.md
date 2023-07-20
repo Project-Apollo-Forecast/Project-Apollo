@@ -269,7 +269,7 @@ To enhance our model's performance, we initially scaled the data and employed th
 
 ***    
 
-Subsequently, we simultaneously employed GridSearch to explore various hyperparameters for the following regression models using the selected features from the training data:
+Subsequently, we employed GridSearch/Cross Validation to explore various hyperparameters for the following regression models using the selected features from the training data:
 
 - LassoLars
 - Generalized Linear Model
@@ -306,7 +306,7 @@ Finally, using the one-line data frame in concert with the best performing model
 
 </details>
 
-## <a name="Nural_Network"></a>Nural Network: 
+## <a name="Nural_Network"></a>Neural Network: 
 [[Back to top](#top)]
     
 <details>
@@ -353,7 +353,7 @@ Words
     
 ***
     
-- In terms of inflation-adjusted dollars in the early 2000s, Ford generated more revenue dollar for dollar compared to present date.
+- Though Ford's revenue has increased since 2003, their inflation adjusted revenue has decreased. Their most noticeable decrease was in 2008 
 
 ***
     
@@ -446,7 +446,7 @@ To facilitate easy replication of our analysis, follow these steps:
     
 ***
     
-- Use the split_data() function provided in the explore.py file to split your data into train and test datasets using the 70/30 method.
+- Use the split_data() function provided in the explore.py file to split your data into train and test datasets using the 75/25 method.
 
 ***    
     
