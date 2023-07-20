@@ -39,18 +39,18 @@
 ![](https://img.shields.io/badge/TensorFlow-2.6.0-FF6F00?logo=tensorflow)
 
 ***
-- [Initial Thoughts](#Initial_Thoughts)
-- [Planning](#Planning)
-- [Acquire](#Acquire)
-- [Data Dictionary](#Data_Dictionary)
-- [Prepare](#Prepare)
-- [Exploration](#Exploration)
-- [Modeling](#Modeling)
-- [Neural Network](#Neural_Network)
-- [Steps to Reproduce](#Steps_to_Reproduce)
-- [Summary](#Summary)
-- [Conclusion](#Conclusion)
-- [Next Steps](#Next_Steps)
+[Initial Thoughts](#Initial_Thoughts)
+[Planning](#Planning)
+[Acquire](#Acquire)
+[Data Dictionary](#Data_Dictionary)
+[Prepare](#Prepare)
+[Exploration](#Exploration)
+[Modeling](#Modeling)
+[Neural Network](#Neural_Network)
+[Steps to Reproduce](#Steps_to_Reproduce)
+[Summary](#Summary)
+[Conclusion](#Conclusion)
+[Next Steps](#Next_Steps)
 ___
 
 
