@@ -1,23 +1,8 @@
-<h2 style="text-align: center; font-weight: bold;">Tools used</h2>
-
-<!-- Icons container table -->
-<table style="margin: 0 auto; width: 100%;">
-  <tr>
-    <td style="text-align: center;"><a href="https://pandas.pydata.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pandas_logo.svg/1200px-Pandas_logo.svg.png" width="80" height="40"></a></td>
-    <td style="text-align: center;"><a href="https://numpy.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NumPy_logo.svg/1280px-NumPy_logo.svg.png" width="80" height="40"></a></td>
-    <td style="text-align: center;"><a href="https://scipy.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/SCIPY_2.svg" width="80" height="40"></a></td>
-    <td style="text-align: center;"><a href="https://matplotlib.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Matplotlib_icon.svg/1200px-Matplotlib_icon.svg.png" width="80" height="40"></a></td>
-    <td style="text-align: center;"><a href="https://seaborn.pydata.org/"><img src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" width="80" height="40"></a></td>
-    <td style="text-align: center;"><a href="https://scikit-learn.org/stable/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/1024px-Scikit_learn_logo_small.svg.png" width="80" height="40"></a></td>
-  </tr>
-</table>
-
-
 <!-- #region -->
 
 
 # Blue Chip Capstone
-
+***
 
 ## Project Description:
 - This project predicts the next quarter's revenue for U.S blue chip companies (Ford Motor Company, Starbucks, and ATT), based on 80 quarters (20 years worth) of various economic, social, political, and environmental factors.
@@ -26,6 +11,33 @@
 - The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
 
 # <a name="top"></a> Project Apollo - README.md
+![Banner](Photos/Banner.png)
+<p>
+  <a href="https://github.com/Andrew-Casey" target="_blank">
+    <img alt="Andrew" src="https://img.shields.io/github/followers/Andrew-Casey92?label=Follow_Andrew&style=social" />
+  </a> 
+  <a href="https://github.com/corey-hermesch" target="_blank">
+    <img alt="Corey" src="https://img.shields.io/github/followers/corey-hermesch?label=Follow_Corey&style=social" />
+  </a>
+  <a href="https://github.com/OKPTaylor" target="_blank">
+    <img alt="Oliver" src="https://img.shields.io/github/followers/OKPTaylor?label=Follow_Oliver&style=social" />  
+  </a>
+</p>
+
+### Tools & Technologies Used: 
+
+![](https://img.shields.io/static/v1?message=Python&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Pandas&logo=pandas&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=SciKit-Learn&logo=scikit-learn&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=SciPy&logo=scipy&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=NumPy&logo=numpy&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=MatPlotLib&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Seaborn&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Tableau&logo=tableau&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Markdown&logo=markdown&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=GitHub&logo=github&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/badge/TensorFlow-2.6.0-FF6F00?logo=tensorflow)
+
 ***
 - [Initial Thoughts](#Initial_Thoughts)
 - [Planning](#Planning)
@@ -394,11 +406,10 @@ Words
 To facilitate easy replication of our analysis, follow these steps:
 ***
     
-#### Download the compiled CSV file from the Github repository.
+#### Clone this repository.
 
 ***    
-- entire_df_ford_starbucks_att_adjusted.csv'
-- Save it to your working directory.
+
 - Read the CSV into a notebook using the following command:
     - df = pd.read_csv("name_of_file.csv")
 
@@ -425,7 +436,7 @@ To facilitate easy replication of our analysis, follow these steps:
     
 ***
     
-- Make a copy of the Project_Apollo_Final_Notebook.ipynb file to start your analysis.
+- Run the Project_Apollo_Final_Notebook.ipynb file to start your analysis.
 
 ***    
     
