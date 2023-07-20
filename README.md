@@ -337,16 +337,52 @@ Finally, using the one-line data frame in concert with the best performing model
 
 </details>
 
-## <a name="Nural_Network"></a>Neural Network: 
+## <a name="Neural_Network"></a>Neural Network: 
 [[Back to top](#top)]
-    
+
 <details>
   <summary>Click to expand!</summary>
+***
 
+#### Neural Network Modeling and Parameter Selection
+    
+****
+    
+To enhance the performance of the neural network modeling (multilayer perceptron model for regression) every variation of the following parameters were used in the training of the Ford, Starbucks, and AT&T models. 
+- Parameters tested:
+    - Optimizers: rmsprop, adam
+    - Learning rates: .001, .01, .1
+    - Activations: relu, tanh
+    - Neurons: 8, 13, 21
+    - All models run through 5000 epochs with 3 layers (1 input, 1 hidden, 1 output).
+    
+***
+    
+#### Model Evaluation:
+    
+***    
 
-Words
-- smart things
-    - even smarter things
+To assess model performance, we measured two key metrics on the training data: Root Mean Squared Error (RMSE) and the coefficient of determination ($R^2$):
+
+- RMSE: The average difference between predicted and actual values.
+- $R^2$: Also known as the coefficient of determination. This value represents the percentage of the variance in our target variable that is explained by our independent variables.
+    
+***
+    
+#### Selecting the Best Model:
+
+***    
+    
+We selected the model that demonstrated the lowest RMSE and the highest $R^2$ values. This top-performing model was then utilized to predict values on our test dataset.
+
+***
+    
+#### Predicting the Next Quarter:
+
+***    
+    
+Finally, using the one-line data frame in concert with the best performing model, we made predictions for the next quarter.
+
 
 </details>
 
@@ -545,14 +581,13 @@ The goal of this project was to predict revenue for a Blue Chip Company in the n
 <details>
   <summary>Click to expand!</summary>
 
+Our project successfully delved into the realm of economic, socio-economic, and environmental factors to predict revenue gains and losses for three major companies: Ford, ATT, and Starbucks. With a meticulous approach to feature selection and testing, we pinpointed crucial variables and developed both classical machine learning (ML) models and a powerful neural network (MLP). These models outperformed baseline predictions, yielding impressive RMSE and R2 values.
 
-We can conclude that our project successfully explored the use of economic, socio-economic, and environmental factors to predict revenue gains and losses for Ford, ATT, and Starbucks. Through rigorous feature selection and testing, we identified key variables and developed models that outperformed baseline predictions and produced respectable RMSE and R2 values.
+For Ford, our ML model projected a slight revenue decrease in Q2 compared to the previous quarter, while the MLP model predicted an increase in Q2 revenues from the preceding quarter. Similarly, both the ML and MLP ATT models showcased promising outcomes, indicating an anticipated revenue growth in Q2 compared to Q1. Additionally, the ML and MLP Starbucks models demonstrated positive results, suggesting a slight revenue increase in Q2 relative to Q1.
 
-For Ford, we predict a slight decrease in revenue for Q2 compared to the previous quarter. Meanwhile, the ATT model also demonstrated promising results, projecting an increase in revenue for Q2 compared to Q1. Lastly, the Starbucks model yielded positive outcomes, indicating a slight revenue increase for Q2 in comparison to Q1.
+It is important to note that all ML models utilized the LassoLars model for predictions, and the neural network employed a specially trained and tailored multilayered perceptron model for each target company.
 
-It is worth mentioning that all the models employed the LassoLars model for their predictions.
-
-Overall, our project highlights the potential of leveraging various factors to predict revenue changes for these companies. While further refinements and validations are needed, these results offer valuable insights and opportunities for future analysis and decision-making in their respective industries.
+In conclusion, our project highlights the potential of leveraging diverse factors to predict revenue changes for these prominent companies. Although further refinements and validations are warranted, these results offer valuable insights and open avenues for future analyses and informed decision-making within their respective industries.
 
 </details>
 
