@@ -23,24 +23,7 @@
 - The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
 ***
 
-### Click buttons below for investor relations information:
-<p>
-  <a href="https://investor.starbucks.com/ir-home/default.aspx" target="_blank">
-    <button>
-      <img alt="Starbucks" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/starbucks.png" width="50" height="50" />
-    </button>
-  </a> 
-  <a href="https://shareholder.ford.com/Investors/Home/default.aspx" target="_blank">
-    <button>
-      <img alt="Ford" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/ford.png" width="50" height="50" />
-    </button>
-  </a>
-  <a href="https://investors.att.com/" target="_blank">
-    <button>
-      <img alt="ATT" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/att.png" width="50" height="50" />  
-    </button>
-  </a>
-</p>
+[![Banner](https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/banner.png)]
 
 ***
 
@@ -612,7 +595,30 @@ Based on the project findings, we can make the following recommendations and out
    - Adapt and refine the models for different market sectors. 
 
 By following these recommendations and embarking on the suggested next steps, organizations can leverage data-driven revenue predictions to make informed decisions, optimize business strategies, and gain a competitive edge in the market.
-
+    
+***
+    
+### Click buttons below for investor relations information:
+<p>
+  <a href="https://investor.starbucks.com/ir-home/default.aspx" target="_blank">
+    <button>
+      <img alt="Starbucks" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/starbucks.png" width="50" height="50" />
+    </button>
+  </a> 
+  <a href="https://shareholder.ford.com/Investors/Home/default.aspx" target="_blank">
+    <button>
+      <img alt="Ford" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/ford.png" width="50" height="50" />
+    </button>
+  </a>
+  <a href="https://investors.att.com/" target="_blank">
+    <button>
+      <img alt="ATT" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/att.png" width="50" height="50" />  
+    </button>
+  </a>
+</p>
+    
+***
+    
 </details>
 
 

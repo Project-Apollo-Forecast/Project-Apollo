@@ -796,7 +796,7 @@ def att_LassoLars_model(X_train_scaled, y_train, att_metrics_df):
     # Add evaluation metrics to the provided metrics DataFrame
     att_metrics_df.loc[1] = ['LassoLars', abs(best_score), corresponding_r2]
 
-    return att_metrics_df , best_model
+    return att_metrics_df, best_model
 
 def att_Generalized_Linear_Model(X_train_scaled, y_train, att_metrics_df):
     """
