@@ -23,7 +23,7 @@
 - The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
 ***
 
-[![Banner](https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/banner.png)]
+![Banner](https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/banner.png)
 
 ***
 
