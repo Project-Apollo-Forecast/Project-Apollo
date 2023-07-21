@@ -106,7 +106,7 @@ def predict_next_quarter_avg(company, X_train_scaled, X_test_scaled, y_test, y_t
     #create a list to store results
     results = []
     results_rmse = []
-    #loop 100 times
+    #loop 10 times
     for i in range(10):
         #make prediction
         yhat, rmse = predict_next_quarter(company, X_train_scaled, X_test_scaled, y_test, y_train, this_is_it_scaled)
