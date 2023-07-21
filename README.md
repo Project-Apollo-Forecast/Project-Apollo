@@ -2,17 +2,6 @@
 
 
 # Blue Chip Capstone 
-***
-
-### Project Description:
-- This project predicts the next quarter's revenue for U.S blue chip companies (Ford Motor Company, Starbucks, and ATT), based on 80 quarters (20 years worth) of various economic, social, political, and environmental factors.
-
-### Project Goal:
-- The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
-***
- 
-![Banner](Photos/banner.png)
-
 <p>
   <a href="https://github.com/Andrew-Casey" target="_blank">
     <img alt="Andrew" src="https://img.shields.io/github/followers/Andrew-Casey?label=Follow_Andrew&style=social" />
@@ -24,6 +13,19 @@
     <img alt="Oliver" src="https://img.shields.io/github/followers/OKPTaylor?label=Follow_Oliver&style=social" />  
   </a>
 </p>
+
+***
+
+### Project Description:
+- This project predicts the next quarter's revenue for a U.S. Blue Chip company. A blue chip company is simply a large company that is well-established, financially sound, and has an excellent reputation. These companies must make decisions about how to posture their resources to meet customer demand and optimize revenue. How many trucks should Ford build? How much coffee should Starbucks buy? This project takes a dataset consisting of 80 quarters worth (20 years) of 38 different national economic, social, political, and environmental measures. It uses that data to train a machine-learning model to use this quarter's data to predict next quarter's revenue for three blue-chip companies: Ford, Starbucks, and AT&T.
+
+### Project Goal:
+- The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
+***
+
+![Banner](https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/banner.png)
+
+***
 
 ### Tools & Technologies Used: 
 
@@ -40,6 +42,7 @@
 ![](https://img.shields.io/badge/TensorFlow-2.6.0-FF6F00?logo=tensorflow)
 
 ***
+## Table of Contents:
 <a name="top"></a>
 [[Initial Thoughts](#Initial_Thoughts)]
 [[Planning](#Planning)]
@@ -64,10 +67,12 @@ ___
 
 ***
     
-"Everything, Everywhere, all at once" — this profound quote encapsulates the concept of the interconnectedness of all things across different locations and scenarios, occurring simultaneously. With this in mind, our project focuses on uncovering influential features within data segments from diverse sectors, which can have substantial impacts on revenue performance. By acquiring these subtle insights, decision-makers can be equipped with advanced knowledge of the external factors influencing their revenues, enabling them to adapt their business strategies accordingly.
+Inspired by the profound quote, 'Everything, Everywhere, all at once,' our project delves into the fascinating world of interconnectedness, recognizing how various elements across different locations and scenarios influence each other simultaneously. Our primary objective revolves around uncovering influential features hidden within data segments from diverse sectors. These features hold the potential to significantly impact revenue performance.
+
+By gaining a deep understanding of these subtle insights, our aim is to empower decision-makers with advanced knowledge of the external factors that shape their revenues. This newfound awareness equips them to adapt their business strategies proactively, leveraging this valuable information to drive success in their ventures.
 
 With the above in mind, some initial questions we had:
-- Are our target variables normally distributed?
+- Are the target variables normally distributed?
 - What features are statistically significant to our targets?
 - Can the same features work for multiple targets? (Targets tested separately)
 - What are the impacts of negative and positive correlating features?
@@ -84,7 +89,10 @@ With the above in mind, some initial questions we had:
 
 ***
     
-Generated a range of innovative ideas for revenue-affecting features through productive brainstorming sessions. Organized tasks using a Kanban board, efficiently tracking their progress under categories like 'Needs to be done', 'Doing', and 'Done'. Collaboratively compiled and maintained a shared knowledge document, ensuring seamless dissemination of new information, ideas, and functions across the team. Set clear milestone due dates and benchmarks, providing a solid foundation for measuring progress and achieving project goals.
+- Generated a range of innovative ideas for revenue-affecting features through productive brainstorming sessions. 
+- Organized tasks using a Kanban board, efficiently tracking their progress under categories like 'Needs to be done', 'Doing', and 'Done'. 
+- Collaboratively compiled and maintained a shared knowledge document, ensuring seamless dissemination of new information, ideas, and functions across the team. 
+- Set clear milestone due dates and benchmarks (including measures of success), providing a solid foundation for measuring progress and achieving project goals.
 
 ***
     
@@ -117,35 +125,51 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 ***
 
-| Feature | Definition (measurement)|
-|:--------|:-----------|
-|adjusted_revenue| The total quarterly revenue of the target Company in dollars adjusted for inflation|
-|Year| The year of the data |
-|Quarter| The quarter of the data |
-|Population|The U.S. population for the quarter| 
-|Median_house_income| The median household income per quarter in dollars|
-|Federal_fund_rate| The interest rate that U.S. banks pay one another top borrow or loan money overnight (percentage)|
-|Unemp_rate| The unemployment rate, the number of residents without a job and looking for work divided by the total number of residents|
-|Home_ownership_rate| Home ownership rate by population|
-|Government_spending| Government spending in billions of dollars|
-|Gdp_deflated| measures changes in the prices of goods and services produced in the United States|
-|Cpi_all_items_avg| Measures price change experienced by urban consumers; the average change in price over time of a market basket of consumer goods and services|
-|Avg_temperature| The avg temperature in fahrenheit for the quarter|
-|Avg_precipitation| The avg rainfall in inches for the quarter|
-|Palmer_drought_index| The magnitude of PDSI indicates the severity of the departure from normal soil moisture conditions|
-|eci|The Employment Cost Index, is a quarterly measure of the change in the price of labor, defined as compensation per employee hour worked|
-|dow|Quarterly Dow Jones Industrial average|
-|P_election| If it is a presidential election year (1=yes)|
-|Midterm_election| If it is a midterm election year (1=yes)|
-|Violent_crime_rate|Violent crimes (involve force or threat of force) per 100,000 |
-|Consumer_confidence_index| An indication of future developments based on households' responses 100+ being a positive outlook|
-|Case_shiller_index| benchmark of average single-family home prices in the U.S., calculated monthly based on changes in home prices over the prior three months |
-|Prime| The prime rate is the interest rate that commercial banks charge creditworthy customers|
-|Man_new_order|Motor Vehicles and Parts, Monthly, Seasonally Adjusted (in millions of dollars)|
-|Construction_res|Total amount spent on residential construction (in millions of dollars)|
-|CLI|The composite leading indicator, designed to provide early signals of turning points in business cycles|
-|Soy|Soy bean prices|
-|Misery_index|The measure of economic distress felt by everyday people, due to the risk of (or actual) joblessness combined with an increasing cost of living| 
+| Feature | Definition | Unit of Measurement|
+|:--------|:-----------|:---------------|
+|Adjusted_revenue| The total quarterly revenue of the target Company in dollars adjusted for inflation| U.S. Dollars, float|
+|Year| The year of the data |0000 year format|
+|Quarter| The quarter of the data |int 1-4|
+|Population|The U.S. population for the quarter|int|
+|Median_house_income| The median household income per quarter in dollars| U.S. Dollars, float|
+|Federal_fund_rate| The interest rate that U.S. banks pay one another top borrow or loan money overnight|percentage, float|
+|Unemp_rate| The unemployment rate, the number of residents without a job and looking for work divided by the total number of residents|percentage, float|
+|Home_ownership_rate| Home ownership rate by population|percentage, float|
+|Government_spending| Government spending in billions of dollars|U.S. Dollars, float|
+|Gdp_deflated| Measures changes in the prices of goods and services produced in the United States|float|
+|Cpi_all_items_avg| Measures price change experienced by urban consumers; the average change in price over time of a market basket of consumer goods and services|float|
+|Avg_temperature| The avg temperature for the quarter| float, fahrenheit|
+|Avg_precipitation| The avg rainfall for the quarter|float, inches|
+|Palmer_drought_index| The magnitude of PDSI indicates the severity of the departure from normal soil moisture conditions|float|
+|Eci|The Employment Cost Index, is a quarterly measure of the change in the price of labor, defined as compensation per employee hour worked|float|
+|Dow|Quarterly Dow Jones Industrial average| float|
+|P_election| If it is a presidential election year (1=yes)|int, 0-1|
+|Midterm_election| If it is a midterm election year (1=yes)|int, 0-1|
+|Violent_crime_rate|Violent crimes (involve force or threat of force) per 100,000 |percentage, float|
+|Consumer_confidence_index| An indication of future developments based on households' responses 100+ being a positive outlook|float|
+|Case_shiller_index| Benchmark of average single-family home prices in the U.S., calculated monthly based on changes in home prices over the prior three months|float|
+|Prime| The prime rate is the interest rate that commercial banks charge creditworthy customers|percentage, float|
+|Man_new_order|Motor Vehicles and Parts, Monthly, Seasonally Adjusted|U.S Dollars, float|
+|Construction_res|Total amount spent on residential construction| U.S. Dollars, float|
+|CLI|The composite leading indicator, designed to provide early signals of turning points in business cycles|float|
+|Soy|Soy bean prices| U.S. Dollars, float|
+|Misery_index|The measure of economic distress felt by everyday people, due to the risk of (or actual) joblessness combined with an increasing cost of living|float|
+|Gas_perc_change| Gas percentage change month over month; 3 month average quarters| percentage, float|
+|S_and_p|Standard and Poor's 500 Index of stocks quarterly average|U.S. Dollars, float|
+|Gini|The Gini index measures the inequality of individual or households 0 being perfectly unequal and 100 being perfectly equal|0-100, int|
+|Hdi| Human development index, a summary composite that measures of a country's health, knowledge and standard of living| float|
+|Auto_loan| The auto loan rate| percentage, float|
+|Velocity_of_money| The frequency at which one unit of currency is used to purchase domestically produced goods/services| float|
+|Loans_and_leases| loans and leases from banks| float|
+|Wti|West Texas Intermediate oil, a benchmark for the US oil market| float|
+|Brent_oil| Brent crude oil prices per quarter| U.S. Dollars, float|
+|Number_of_disaster| The number of FEMA disaster declarations per quarter| int|
+|Business_confidence_index| An indication of future developments based on business responses 100+ being positive| float|
+|C_e_s_housing|Consumer expenditure survey housing, the total amount spent on housing per family unit per year| U.S. Dollars, float|
+|C_e_s_health|Consumer expenditure survey health, the total amount spent on health per family unit per year|U.S. Dollars, float|
+|C_e_s_entertainment|Consumer expenditure survey entertainment, the total amount spent on entertainment per family unit per year| U.S. Dollars, float|
+|Ease_of_doing_business|A score that benchmark economies regulatory performance measured by Doing Business|0-100, float|
+|Wars_started| Number of wars per year| int| 
 
 ***
     
@@ -177,6 +201,29 @@ Bringing all this valuable data together, we created a unified and coherent data
 - For variables where it made sense, we filled in missing values using a 3-period weighted moving average.
 
 - However, for variables where filling in missing data would be unreliable, we decided to drop those variables.
+    - Variables dropped:
+        - Personal Consumption Expenditures
+        - Air Quality
+        - Happiness Index
+        - Flu Season Severity
+        - Jobs Added
+        - Producer Price Index
+        - Household Debt to Income Ratio
+        - Air Travel
+        - Number of Weddings/Divorces
+        - Legal Immigration
+        - Inventory to Sales Ratio
+        - Business Confidence Index
+        - Natural Disasters
+        - Number of Conflicts
+    
+    - Variables with missing values filled
+        - Median Household Income
+        - Consumer Expenditure Survey (Health)
+        - Consumer Expenditure Survey (Housing)
+        - Consumer Expenditure Survey (Entertainment)
+        - Consumer Confidence Index
+
     
 ***
     
@@ -199,7 +246,7 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 2. Next, we removed the top row, which contained data relevant to predicting Q3 2023. (Unnecessary for this study)
 
-3. Finally, we isolated 1 line of data. Q1 2023 data was removed and set aside as a separate 1-line dataframe. This dataframe will be used to predict Q2 revenue for Ford, ATT, and Starbucks.
+3. After meticulous data analysis, we successfully isolated a single line of crucial data, representing Q1 2023. This significant data was set aside as a separate 1-line dataframe, and it holds the key to predicting Q2 revenue for industry giants like Ford, ATT, and Starbucks. As we progress through the project, we eagerly await the Q2 revenue numbers for Ford and ATT, scheduled for release on 27th and 26th July 2023, respectively. Starbucks, on the other hand, will reveal their information on 1st August 2023. These official figures will serve as our benchmark to verify and validate the accuracy of our predictions.
 
 
     
@@ -217,7 +264,7 @@ Bringing all this valuable data together, we created a unified and coherent data
 
 ***
     
-- At the outset, we divided our data into training and test sets following a 70/30 split. As our modeling approach incorporates GridSearch, a traditional train-validate-test division was deemed unnecessary.
+- At the outset, we divided our data into training and test sets following a 75/25 split. As our modeling approach incorporates GridSearch, a traditional train-validate-test division was deemed unnecessary.
 
 ***
 #### Testing for Normalcy and Statistical Methodology:
@@ -269,7 +316,7 @@ To enhance our model's performance, we initially scaled the data and employed th
 
 ***    
 
-Subsequently, we simultaneously employed GridSearch to explore various hyperparameters for the following regression models using the selected features from the training data:
+Subsequently, we employed GridSearch/Cross Validation to explore various hyperparameters for the following regression models using the selected features from the training data:
 
 - LassoLars
 - Generalized Linear Model
@@ -306,16 +353,52 @@ Finally, using the one-line data frame in concert with the best performing model
 
 </details>
 
-## <a name="Nural_Network"></a>Nural Network: 
+## <a name="Neural_Network"></a>Neural Network: 
 [[Back to top](#top)]
-    
+
 <details>
   <summary>Click to expand!</summary>
+***
 
+#### Neural Network Modeling and Parameter Selection
+    
+****
+    
+To enhance the performance of the neural network modeling (multilayer perceptron model for regression) every variation of the following parameters were used in the training of the Ford, Starbucks, and AT&T models. 
+- Parameters tested:
+    - Optimizers: rmsprop, adam
+    - Learning rates: .001, .01, .1
+    - Activations: relu, tanh
+    - Neurons: 8, 13, 21
+    - All models run through 5000 epochs with 3 layers (1 input, 1 hidden, 1 output).
+    
+***
+    
+#### Model Evaluation:
+    
+***    
 
-Words
-- smart things
-    - even smarter things
+To assess model performance, we measured two key metrics on the training data: Root Mean Squared Error (RMSE) and the coefficient of determination ($R^2$):
+
+- RMSE: The average difference between predicted and actual values.
+- $R^2$: Also known as the coefficient of determination. This value represents the percentage of the variance in our target variable that is explained by our independent variables.
+    
+***
+    
+#### Selecting the Best Model:
+
+***    
+    
+We selected the model that demonstrated the lowest RMSE and the highest $R^2$ values. This top-performing model was then utilized to predict values on our test dataset.
+
+***
+    
+#### Predicting the Next Quarter:
+
+***    
+    
+Finally, using the one-line data frame in concert with the best performing model, we made predictions for the next quarter.
+
 
 </details>
 
@@ -337,7 +420,9 @@ Words
 #### Starbucks as DOW and S&P 500 Proxy:
     
 ***    
+    
 - While not officially designated as a proxy, Starbucks' revenue shows a close alignment with the movement of the DOW and S&P 500, making it a 'de-facto' proxy.
+    - A "Dow proxy" or "S&P 500 proxy" typically refers to an investment or financial instrument that closely mimics the performance of the Dow Jones Industrial Average or Standard and Poor's 500. 
 
 *** 
     
@@ -353,7 +438,7 @@ Words
     
 ***
     
-- In terms of inflation-adjusted dollars in the early 2000s, Ford generated more revenue dollar for dollar compared to present date.
+- While Ford's overall revenue has shown an upward trend since 2003, the picture changes when we account for inflation. Inflation-adjusted revenue reveals a different story, indicating a decline over the years. The most significant decrease occurred during the 2008 financial crisis, where revenue plummeted from 61.8B in Q4 2007 to 34.98B in Q4 2008, resulting in a substantial 26.88B decrease. Despite some recovery, particularly in Q3 2009, with revenue reaching around 49.18B, Ford never fully bounced back from the impact of the Great Recession. Since then, their revenue has remained relatively stable, albeit at a lower level. (All figures presented are in inflation-adjusted dollars.)
 
 ***
     
@@ -386,7 +471,14 @@ Words
 
 ***
     
-- Out of 38 features, 10 were found to be correlated with all three companies, while 6 did not correlate with any of the three.
+- Out of 38 (total features before removing unnecessary columns) :
+    - 10 were found to be correlated with all three companies 
+    - 6 did not correlate with any of the three.
+We used the following combinations for our targets (after KBest feature selection:
+    - Ford: 15 features
+    - Starbucks: 19 features
+    - AT&T: 13 features
+
 
 ***
     
@@ -413,7 +505,7 @@ To facilitate easy replication of our analysis, follow these steps:
 ***    
 
 - Read the CSV into a notebook using the following command:
-    - df = pd.read_csv("name_of_file.csv")
+    - df = pd.read_csv("entire_df_ford_starbucks_att_adjusted.csv.csv")
 
 ***
     
@@ -446,7 +538,7 @@ To facilitate easy replication of our analysis, follow these steps:
     
 ***
     
-- Use the split_data() function provided in the explore.py file to split your data into train and test datasets using the 70/30 method.
+- Use the split_data() function provided in the explore.py file to split your data into train and test datasets using the 75/25 method.
 
 ***    
     
@@ -505,14 +597,13 @@ The goal of this project was to predict revenue for a Blue Chip Company in the n
 <details>
   <summary>Click to expand!</summary>
 
+Our project successfully delved into the realm of economic, socio-economic, and environmental factors to predict revenue gains and losses for three major companies: Ford, ATT, and Starbucks. With a meticulous approach to feature selection and testing, we pinpointed crucial variables and developed both classical machine learning (ML) models and a powerful neural network (MLP). These models outperformed baseline predictions, yielding impressive RMSE and R2 values.
 
-We can conclude that our project successfully explored the use of economic, socio-economic, and environmental factors to predict revenue gains and losses for Ford, ATT, and Starbucks. Through rigorous feature selection and testing, we identified key variables and developed models that outperformed baseline predictions and produced respectable RMSE and R2 values.
+For Ford, our ML model projected a slight revenue decrease in Q2 compared to the previous quarter, while the MLP model predicted an increase in Q2 revenues from the preceding quarter. Similarly, both the ML and MLP ATT models showcased promising outcomes, indicating an anticipated revenue growth in Q2 compared to Q1. Additionally, the ML and MLP Starbucks models demonstrated positive results, suggesting a slight revenue increase in Q2 relative to Q1.
 
-For Ford, we predict a slight decrease in revenue for Q2 compared to the previous quarter. Meanwhile, the ATT model also demonstrated promising results, projecting an increase in revenue for Q2 compared to Q1. Lastly, the Starbucks model yielded positive outcomes, indicating a slight revenue increase for Q2 in comparison to Q1.
+It is important to note that all ML models utilized the LassoLars model for predictions, and the neural network employed a specially trained and tailored multilayered perceptron model for each target company.
 
-It is worth mentioning that all the models employed the LassoLars model for their predictions.
-
-Overall, our project highlights the potential of leveraging various factors to predict revenue changes for these companies. While further refinements and validations are needed, these results offer valuable insights and opportunities for future analysis and decision-making in their respective industries.
+In conclusion, our project highlights the potential of leveraging diverse factors to predict revenue changes for these prominent companies. Although further refinements and validations are warranted, these results offer valuable insights and open avenues for future analyses and informed decision-making within their respective industries.
 
 </details>
 
@@ -555,7 +646,30 @@ Based on the project findings, we can make the following recommendations and out
    - Adapt and refine the models for different market sectors. 
 
 By following these recommendations and embarking on the suggested next steps, organizations can leverage data-driven revenue predictions to make informed decisions, optimize business strategies, and gain a competitive edge in the market.
-
+    
+***
+    
+### Click buttons below for investor relations information:
+<p>
+  <a href="https://investor.starbucks.com/ir-home/default.aspx" target="_blank">
+    <button>
+      <img alt="Starbucks" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/starbucks.png" width="50" height="50" />
+    </button>
+  </a> 
+  <a href="https://shareholder.ford.com/Investors/Home/default.aspx" target="_blank">
+    <button>
+      <img alt="Ford" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/ford.png" width="50" height="50" />
+    </button>
+  </a>
+  <a href="https://investors.att.com/" target="_blank">
+    <button>
+      <img alt="ATT" src="https://github.com/Project-Apollo-Forecast/Project-Apollo/blob/main/Photos/att.png" width="50" height="50" />  
+    </button>
+  </a>
+</p>
+    
+***
+    
 </details>
 
 
