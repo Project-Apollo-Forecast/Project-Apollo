@@ -16,10 +16,12 @@ from sklearn.metrics import make_scorer
 
 def get_starbucks_Q1_2023_data_for_prediction():
     """
-    Retrieves and prepares Quarter 1, 2023 data for Starbucks revenue prediction.
+    Retrieves and prepares Quarter 1, 2023 data for Starbucks Q2 revenue prediction.
 
-    This function reads the data from the file 'values_for_prediction_ford_adjusted.csv',
-    selects statistically significant features relevant for revenue prediction, and returns
+    This function reads the data from the file 'values_for_prediction_ford_adjusted.csv'. The predicted features line is 
+    is the same for all companies since it is void of the target (revenue for each). The word ford is in the file name because
+    it was the first company the file was made for. 
+    The function selects statistically significant features relevant for Starbucks revenue prediction, and returns
     a pandas DataFrame containing these features.
 
     Returns:
@@ -40,7 +42,7 @@ def get_starbucks_Q1_2023_data_for_prediction():
 
 def starbucks_scaled_df(train, test, starbucks_revenue_prediction):
     """
-    Scale the train, validate, and test data using the MinMaxScaler.
+    Scale the train, and test data using the MinMaxScaler.
 
     Parameters:
         train (pandas DataFrame): The training data.
@@ -72,10 +74,10 @@ def starbucks_scaled_df(train, test, starbucks_revenue_prediction):
     y_train = train.adjusted_revenue_S
     y_test = test.adjusted_revenue_S
 
-    # Making our scaler
+    # Make our scaler object
     scaler = MinMaxScaler()
     
-    # Fitting our scaler and using it to transform train and test data
+    # Fit our scaling object and use it to transform train and test data
     X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train),
                                   columns=X_train.columns,
                                   index=X_train.index)
@@ -83,7 +85,7 @@ def starbucks_scaled_df(train, test, starbucks_revenue_prediction):
                                  columns=X_test.columns,
                                  index=X_test.index)
     
-    # Scaling the Ford revenue prediction data
+    # Scale the Starbucks revenue prediction data
     starbucks_revenue_prediction_scaled = pd.DataFrame(scaler.transform(starbucks_revenue_prediction.values.reshape(1, -1)),
                                                   columns=starbucks_revenue_prediction.columns,
                                                   index=starbucks_revenue_prediction.index)
@@ -101,7 +103,9 @@ def starbucks_metrics_reg(y, yhat):
     Returns:
         tuple: A tuple containing the Root Mean Squared Error (RMSE) and R-squared (R2) values.
     """
+    # calculate rmse
     rmse = mean_squared_error(y, yhat, squared=False)
+    # calculate r2
     r2 = r2_score(y, yhat)
     return rmse, r2
 
@@ -123,7 +127,7 @@ def starbucks_baseline_model(train, y_train):
     # Set baseline
     baseline = round(y_train.mean(), 2)
 
-    # Make an array to send into my mean_square_error function
+    # Make an array to send into mean_square_error function
     baseline_array = np.repeat(baseline, len(train))
 
     # Evaluate the baseline RMSE and R2
@@ -161,6 +165,7 @@ def starbucks_LassoLars_model(X_train_scaled, y_train, starbucks_metrics_df):
         'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],  
         'normalize': [True, False]
     }
+    # Define scoring metrics and create dictionary to house them
     scoring = {
     'RMSE': 'neg_root_mean_squared_error',
     'r2': make_scorer(r2_score)
@@ -172,11 +177,11 @@ def starbucks_LassoLars_model(X_train_scaled, y_train, starbucks_metrics_df):
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    #   Get the best model rmse and r2
+    # Retrieve best model for modeling predictions
     best_model = grid_search.best_estimator_
-    # Get the best model rmse and r2
+    # Get the best model rmse 
     best_score = grid_search.best_score_
-
+    # Get the best model associated r2
     best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
     corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
 
@@ -203,6 +208,7 @@ def starbucks_Generalized_Linear_Model(X_train_scaled, y_train, starbucks_metric
         'alpha': [0.00001, 0.0001, 0.001, 0.01,0.1,0.25,0.5,0.75, 1],
         'power': [0, 1, 2]  # Example values for power
     }
+    # define scoring metrics and create a dictionary to house them
     scoring = {
     'RMSE': 'neg_root_mean_squared_error',
     'r2': make_scorer(r2_score)
@@ -214,11 +220,10 @@ def starbucks_Generalized_Linear_Model(X_train_scaled, y_train, starbucks_metric
     # Fit the GridSearchCV object to the training data
     grid_search.fit(X_train_scaled, y_train)
 
-    
-
-    # Get the best model rmse and r2
+    # Get the best model rmse 
     best_score = grid_search.best_score_
 
+    # Get the best model r2
     best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
     corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
    
@@ -275,10 +280,10 @@ def starbucks_polynomial_regression(X_train_scaled, y_train, starbucks_metrics_d
     grid_search.fit(X_train_scaled, y_train)
 
 
-    # Get the best model rmse and r2
-  
+    # Get the best model rmse 
     best_score = grid_search.best_score_
 
+    # Get the best model r2
     best_index = np.where(grid_search.cv_results_['mean_test_RMSE'] == grid_search.best_score_)[0]
     corresponding_r2 = grid_search.cv_results_['mean_test_r2'][best_index][0]
 
@@ -341,20 +346,17 @@ def best_model_on_test(X_test_scaled, best_model, y_test):
 
 def get_ford_Q1_2023_data_for_prediction():
     """
-    Get Ford's 2023 Q1 data for revenue prediction in Q2.
+    Retrieves and prepares Quarter 1, 2023 data for Ford's Q2 revenue prediction.
 
-    Parameters:
-        filename (str): The path or name of the CSV file containing the data.
+    This function reads the data from the file 'values_for_prediction_ford_adjusted.csv'. The predicted features line is 
+    is the same for all companies since it is void of the target (revenue for each). The word Ford is in the file name because
+    it was the first company the file was made for. 
+    The function selects statistically significant features relevant for Ford's revenue prediction, and returns
+    a pandas DataFrame containing these features.
 
     Returns:
-        pandas DataFrame: A DataFrame with statistically significant features for Ford's Q1 2023 revenue prediction.
-
-    This function reads the data for Ford's Q1 2023 revenue prediction from the specified CSV file. It selects
-    statistically significant features needed for the prediction, including population, median_house_income, misery_index,
-    gdp_deflated, violent_crime_rate, cpi_all_items_avg, eci, prime, gini, hdi, cli, velocity_of_money,
-    consumer_confidence_index, c_e_s_health, and ease_of_doing_business.
-
-    The function returns a DataFrame containing these selected features for further use in revenue prediction modeling.
+        pandas DataFrame: A DataFrame containing the statistically significant features
+                          for Ford's revenue prediction in Quarter 1, 2023.
     """
 
     # prepare 2023 quarter 1 data for prediction of quarter 2 revenue
@@ -639,10 +641,17 @@ def ford_best_model_on_test(X_test_scaled, best_model, y_test):
 
 def get_att_Q1_2023_data_for_prediction():
     """
-    Retrieves the ATT's 2023 Quarter 1 data for revenue prediction.
+    Retrieves and prepares Quarter 1, 2023 data for ATT's Q2 revenue prediction.
+
+    This function reads the data from the file 'values_for_prediction_ford_adjusted.csv'. The predicted features line is 
+    is the same for all companies since it is void of the target (revenue for each). The word ford is in the file name because
+    it was the first company the file was made for. 
+    The function selects statistically significant features relevant for ATT's revenue prediction, and returns
+    a pandas DataFrame containing these features.
 
     Returns:
-        pandas DataFrame: A DataFrame containing the statistically significant features for predicting ATT's revenue in Quarter 2 of 2023.
+        pandas DataFrame: A DataFrame containing the statistically significant features
+                          for ATT's revenue prediction in Quarter 1, 2023.
     """
     # prepare 2023 quarter 1 data for prediction of quarter 2 revenue
     this_is_it = pd.read_csv('values_for_prediction_ford_adjusted.csv')

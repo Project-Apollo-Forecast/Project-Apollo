@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 def split_data(df):
     '''
-    Take in a DataFrame and perform a train-test split with a 70/30 ratio.
+    Take in a DataFrame and perform a train-test split with a 75/25 ratio.
     Return train and test DataFrames.
     '''
     train, test = train_test_split(df, test_size=0.25, random_state=123)
@@ -22,7 +22,7 @@ def plot_ford_target(train):
         
     Returns:
     --------
-    countplot of revenue in the train data set
+    histogram of revenue in the train data set
     """
     sns.histplot(data=train, x='adjusted_revenue_B')
     plt.title('Ford revenue in Billions')
@@ -54,7 +54,7 @@ def plot_att_target(train):
         
     Returns:
     --------
-    countplot of revenue in the train data set
+    histogram of revenue in the train data set
     """
     sns.histplot(data=train, x='adjusted_revenue_A')
     plt.title('ATT revenue in Billions')
@@ -86,7 +86,7 @@ def plot_starbucks_target(train):
         
     Returns:
     --------
-    countplot of revenue in the train data set
+    histogram of revenue in the train data set
     """
     sns.histplot(data=train, x='adjusted_revenue_S')
     plt.title('Starbucks revenue in Billions')
