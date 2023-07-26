@@ -17,7 +17,7 @@
 ***
 
 ### Project Description:
-- This project predicts the next quarter's revenue for a U.S. Blue Chip company. A blue chip company is simply a large company that is well-established, financially sound, and has an excellent reputation. These companies must make decisions about how to posture their resources to meet customer demand and optimize revenue. How many trucks should Ford build? How much coffee should Starbucks buy? This project takes a dataset consisting of 80 quarters worth (20 years) of 38 different national economic, social, political, and environmental measures. It uses that data to train a machine-learning model to use this quarter's data to predict next quarter's revenue for three blue-chip companies: Ford, Starbucks, and AT&T.
+- This project predicts the next quarter's revenue for a U.S. Blue Chip company. A blue chip company is simply a large company that is well-established, financially sound, and has an excellent reputation. These companies must make decisions about how to posture their resources to meet customer demand and optimize revenue. How many trucks should Ford build? How much coffee should Starbucks buy? This project takes a dataset consisting of 80 quarters worth (20 years) of 38 different national economic, social, political, and environmental measures. It uses that data to train a machine-learning model to use previous quarter's data to predict next quarter's revenue for three blue-chip companies: Ford, Starbucks, and AT&T.
 
 ### Project Goal:
 - The goal is to use generic data available to the public rather than industry-specific data or company-specific data to make a good total revenue prediction, better than predicting the average.
@@ -67,7 +67,7 @@ ___
 
 ***
     
-Inspired by the profound quote, 'Everything, Everywhere, all at once,' our project delves into the fascinating world of interconnectedness, recognizing how various elements across different locations and scenarios influence each other simultaneously. Our primary objective revolves around uncovering influential features hidden within data segments from diverse sectors. These features hold the potential to significantly impact revenue performance.
+Our project delves into the fascinating world of interconnectedness, recognizing how various elements across different locations and scenarios influence each other simultaneously. Our primary objective revolves around uncovering influential features hidden within data segments from diverse sectors. These features hold the potential to significantly impact revenue performance.
 
 By gaining a deep understanding of these subtle insights, our aim is to empower decision-makers with advanced knowledge of the external factors that shape their revenues. This newfound awareness equips them to adapt their business strategies proactively, leveraging this valuable information to drive success in their ventures.
 
@@ -106,7 +106,7 @@ With the above in mind, some initial questions we had:
 
 ***
     
-During the "Acquire" phase of our project, we collected a rich dataset comprising 40 features meticulously sourced from over 17 distinct websites. Notable among them are:
+During the "Acquire" phase of our project, we collected a rich dataset comprising 38 features meticulously sourced from over 17 distinct websites. Notable among them are:
 - Federal Reserve Economic Data (FRED)
 - Bureau of Labor & Statistics (BLS)
 - Organization for Economic Cooperation and Development (OECD)
@@ -201,6 +201,8 @@ Bringing all this valuable data together, we created a unified and coherent data
 - For variables where it made sense, we filled in missing values using a 3-period weighted moving average.
 
 - However, for variables where filling in missing data would be unreliable, we decided to drop those variables.
+    
+- The below are dropped for statistical insignificance or inability to reliably handle null values. 
     - Variables dropped:
         - Personal Consumption Expenditures
         - Air Quality
@@ -215,7 +217,7 @@ Bringing all this valuable data together, we created a unified and coherent data
         - Inventory to Sales Ratio
         - Business Confidence Index
         - Natural Disasters
-        - Number of Conflicts
+        - Wars Started
     
     - Variables with missing values filled
         - Median Household Income
@@ -505,7 +507,7 @@ To facilitate easy replication of our analysis, follow these steps:
 ***    
 
 - Read the CSV into a notebook using the following command:
-    - df = pd.read_csv("entire_df_ford_starbucks_att_adjusted.csv.csv")
+    - df = pd.read_csv("entire_df_ford_starbucks_att_adjusted.csv")
 
 ***
     
@@ -646,7 +648,10 @@ Based on the project findings, we can make the following recommendations and out
    - Adapt and refine the models for different market sectors. 
 
 By following these recommendations and embarking on the suggested next steps, organizations can leverage data-driven revenue predictions to make informed decisions, optimize business strategies, and gain a competitive edge in the market.
-    
+
+7. Account for mergers:
+    - ATT was the only company with mergers. We believe our data did not explain this. Also, we believe the model is overfitting based on the models inability to account for those changes. 
+    - We need to explore other methods of handling mergers, such as omitting the revenue prior to 2007, or adding in the revenues of the absorbed companies.
 ***
     
 ### Click buttons below for investor relations information:
